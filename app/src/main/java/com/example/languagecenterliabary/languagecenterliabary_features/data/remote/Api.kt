@@ -5,11 +5,10 @@ import com.example.languagecenterliabary.languagecenterliabary_features.domain.m
 import retrofit2.http.*
 
 interface Api {
-    @GET("user")
-    suspend fun getMemes(): List<ApiModel>
+    @GET("/sorgen/api/v1/info")
+    suspend fun getMemes(): ApiModel
 
     companion object {
-        const val BASE_URL = "https://us-central1-rest-api-ed3bc.cloudfunctions.net"
-    //"https://language.novasa.com"
+        const val BASE_URL = "https://language.novasa.com"
     }
 }

@@ -7,8 +7,7 @@ import androidx.room.PrimaryKey
 data class DaoModel(
     @PrimaryKey(autoGenerate = true)
     val id: Int? = null,
-    val image: String,
-    val text: String
+    val account_name: String,
 )
 
 

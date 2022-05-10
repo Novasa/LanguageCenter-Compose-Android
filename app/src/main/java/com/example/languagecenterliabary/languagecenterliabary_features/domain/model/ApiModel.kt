@@ -2,10 +2,6 @@ package com.example.languagecenterliabary.languagecenterliabary_features.domain.
 import androidx.annotation.Keep
 import kotlinx.serialization.Serializable
 
-@Keep
-@Serializable
 data class ApiModel(
-    val id: Int,
-    val image: String,
-    val text: String
+    val account_name: String,
 )

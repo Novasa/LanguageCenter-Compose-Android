@@ -72,9 +72,9 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    fun insert(title: MutableState<String>, description: MutableState<String>){
-        if (!TextUtils.isEmpty(title.value) && !TextUtils.isEmpty(description.value)){
-            todoViewModel.insert(DaoModel(text = title.value, image = description.value))
+    fun insert(account_name: MutableState<String>){
+        if (!TextUtils.isEmpty(account_name.value)){
+            todoViewModel.insert(DaoModel(account_name = account_name.value,))
             Toast.makeText(this@MainActivity, "Inserted...", Toast.LENGTH_SHORT).show()
         }else{
             Toast.makeText(this@MainActivity, "Empty...", Toast.LENGTH_SHORT).show()
@@ -117,8 +117,7 @@ class MainActivity : ComponentActivity() {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Column(modifier = Modifier.padding(10.dp)) {
-                    Text(text = daoModel.text, fontWeight = FontWeight.ExtraBold)
-                    Text(text = daoModel.image, fontStyle = FontStyle.Italic)
+                    Text(text = daoModel.account_name, fontWeight = FontWeight.ExtraBold)
                 }
                 IconButton(onClick = {
                     openDeleteDialog.value = true
