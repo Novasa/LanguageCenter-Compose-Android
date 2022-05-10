@@ -58,7 +58,11 @@ class MainActivity : ComponentActivity() {
                 val openDialog = remember{ mutableStateOf(false) }
                 FloatingActionButton(onClick = {
                     Log.d("helloooo", "${responseData}")
-                    todoViewModel.getData(todoViewModel)
+                    todoViewModel.(todoViewModel)
+                    todoViewModel.postString(todoViewModel, "android", "test","test","test","test",)
+                    todoViewModel.getListLanguages(todoViewModel)
+                    todoViewModel.getSpecificLanguage(todoViewModel)
+                    todoViewModel.getListStrings(todoViewModel)
                 //todo.title = title.value
                     //todo.description = description.value
                     //todoViewModel.update(todo)

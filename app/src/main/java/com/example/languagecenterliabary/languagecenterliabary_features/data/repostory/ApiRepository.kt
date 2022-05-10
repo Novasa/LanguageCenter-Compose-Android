@@ -2,29 +2,31 @@ package com.example.languagecenterliabary.languagecenterliabary_features.data.re
 
 import android.util.Log
 import com.example.languagecenterliabary.languagecenterliabary_features.data.remote.Api
-import com.example.languagecenterliabary.languagecenterliabary_features.data.remote.Api.Companion.BASE_URL
 import com.example.languagecenterliabary.languagecenterliabary_features.domain.DaoModel
-import com.example.languagecenterliabary.languagecenterliabary_features.domain.model.ApiModel
+import com.example.languagecenterliabary.languagecenterliabary_features.domain.api_models.PostStringModel
 import com.example.languagecenterliabary.languagecenterliabary_features.presentation.MainViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.IOException
-import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Inject
 
 class ApiRepository @Inject constructor(
-    api: Api
+    private val api: Api
 ) {
-    val api = api
-    fun GetData(
-        state: MainViewModel
+
+    fun postString (
+        platform: String,
+        category: String,
+        key: String,
+        value: String,
+        comment: String,
     ) {
-        CoroutineScope(Dispatchers.Main).launch {
+        CoroutineScope(Dispatchers.IO).launch {
             try {
-                val data = api.getMemes()
-                state.insert(DaoModel(account_name = data.account_name))
-                Log.d("dataaaaaaaa", "${api.getMemes()}")
+                val data = api.postString(PostStringModel(platform, category, key, value, comment))
+                data
+                Log.d("dataaaaaaaa", "${data}")
             } catch (e: IOException) {
                 Log.d("MainActivity", "${e}")
             }
