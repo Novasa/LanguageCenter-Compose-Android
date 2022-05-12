@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ComposeRoom.iml" filepath="$PROJECT_DIR$/.idea/modules/ComposeRoom.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/LanguageCenterLibrary/ComposeRoom.LanguageCenterLibrary.iml" filepath="$PROJECT_DIR$/.idea/modules/LanguageCenterLibrary/ComposeRoom.LanguageCenterLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ComposeRoom.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ComposeRoom.app.iml" />
     </modules>
   </component>
