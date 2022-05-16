@@ -6,10 +6,13 @@ import javax.inject.Inject
 class LanguageCenterProvierImpl @Inject constructor(
 
 ): LanguageCenterProvider {
-    lateinit var config: LanguageCenterConfig
-        private set
+
+    private lateinit var _config: LanguageCenterConfig
+    override val config: LanguageCenterConfig
+        get() = _config
+
 
     override fun configure(config: LanguageCenterConfig) {
-        this.config = config
+        _config = config
     }
 }
