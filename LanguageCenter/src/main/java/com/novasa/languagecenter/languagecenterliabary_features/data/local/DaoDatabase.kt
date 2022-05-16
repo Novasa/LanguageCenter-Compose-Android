@@ -11,6 +11,7 @@ abstract class DaoDatabase : RoomDatabase(){
 
     abstract fun getDao(): DaoFunctions
 
+    // TODO: Du kan fjerne alt herunder, da det bliver håndteret i DaoModule
     companion object {
         @Volatile
         private var INSTANCE: DaoDatabase? = null
