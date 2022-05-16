@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ComposeRoom.iml" filepath="$PROJECT_DIR$/.idea/modules/ComposeRoom.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/LanguageCenterLibrary/ComposeRoom.LanguageCenterLibrary.iml" filepath="$PROJECT_DIR$/.idea/modules/LanguageCenterLibrary/ComposeRoom.LanguageCenterLibrary.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ComposeRoom.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ComposeRoom.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AndroidLibrary.iml" filepath="$PROJECT_DIR$/.idea/modules/AndroidLibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/AndroidLibrary.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/AndroidLibrary.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/image-preview/AndroidLibrary.image-preview.iml" filepath="$PROJECT_DIR$/.idea/modules/image-preview/AndroidLibrary.image-preview.iml" />
     </modules>
   </component>
 </project>

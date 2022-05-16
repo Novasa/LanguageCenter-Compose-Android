@@ -3,7 +3,7 @@ package com.example.languagecenterliabary.languagecenterliabary_features.di
 import android.app.Application
 import androidx.room.Room
 import com.example.languagecenterliabary.languagecenterliabary_features.data.local.DaoFunctions
-import com.example.languagecenterliabary.languagecenterliabary_features.data.local.DaoDatabase
+import com.plcoding.image_preview.DaoDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
