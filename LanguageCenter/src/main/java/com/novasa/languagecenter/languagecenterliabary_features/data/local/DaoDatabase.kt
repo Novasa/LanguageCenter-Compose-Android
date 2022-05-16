@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.languagecenterliabary.languagecenterliabary_features.data.local.DaoFunctions
 import com.novasa.languagecenter.languagecenterliabary_features.domain.dao_models.DaoStringModel
 
 @Database(entities = [DaoStringModel::class], version = 2, exportSchema = false)

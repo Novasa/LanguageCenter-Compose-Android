@@ -1,4 +1,4 @@
-package com.example.languagecenterliabary.languagecenterliabary_features.data.repostory
+package com.novasa.languagecenter.languagecenterliabary_features.data.repostory
 
 import android.content.Context
 import kotlinx.coroutines.runBlocking

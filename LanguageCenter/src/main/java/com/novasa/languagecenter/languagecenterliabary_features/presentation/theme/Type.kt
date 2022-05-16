@@ -1,4 +1,4 @@
-package com.example.languagecenterliabary.languagecenterliabary_features.presentation.theme
+package com.novasa.languagecenter.languagecenterliabary_features.presentation.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

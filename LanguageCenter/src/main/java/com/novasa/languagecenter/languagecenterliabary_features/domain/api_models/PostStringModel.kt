@@ -1,4 +1,4 @@
-package com.example.languagecenterliabary.languagecenterliabary_features.domain.api_models
+package com.novasa.languagecenter.languagecenterliabary_features.domain.api_models
 
 data class PostStringModel (
     val platform: String,

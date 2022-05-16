@@ -1,8 +1,8 @@
-package com.example.languagecenterliabary.languagecenterliabary_features.di
+package com.novasa.languagecenter.languagecenterliabary_features.di
 
 import android.app.Application
 import androidx.room.Room
-import com.example.languagecenterliabary.languagecenterliabary_features.data.local.DaoFunctions
+import com.novasa.languagecenter.languagecenterliabary_features.data.local.DaoFunctions
 import com.novasa.languagecenter.languagecenterliabary_features.data.local.DaoDatabase
 import dagger.Module
 import dagger.Provides

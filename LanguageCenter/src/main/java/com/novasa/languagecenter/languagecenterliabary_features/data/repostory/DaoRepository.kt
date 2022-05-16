@@ -1,6 +1,6 @@
-package com.example.languagecenterliabary.languagecenterliabary_features.data.repostory
+package com.novasa.languagecenter.languagecenterliabary_features.data.repostory
 
-import com.example.languagecenterliabary.languagecenterliabary_features.data.local.DaoFunctions
+import com.novasa.languagecenter.languagecenterliabary_features.data.local.DaoFunctions
 import com.novasa.languagecenter.languagecenterliabary_features.domain.dao_models.DaoStringModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow

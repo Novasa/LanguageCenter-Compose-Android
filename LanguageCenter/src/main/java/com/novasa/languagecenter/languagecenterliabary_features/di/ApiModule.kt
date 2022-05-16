@@ -1,7 +1,7 @@
-package com.example.languagecenterliabary.languagecenterliabary_features.di
+package com.novasa.languagecenter.languagecenterliabary_features.di
 
-import com.example.languagecenterliabary.languagecenterliabary_features.data.remote.Api
-import com.example.languagecenterliabary.languagecenterliabary_features.data.repostory.Auth
+import com.novasa.languagecenter.languagecenterliabary_features.data.remote.Api
+import com.novasa.languagecenter.languagecenterliabary_features.data.repostory.Auth
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.novasa.languagecenter.languagecenterliabary_features.domain.api_models.LanguageCenterConfig
 import com.novasa.languagecenter.languagecenterliabary_features.provider.LanguageCenterProvierImpl

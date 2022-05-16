@@ -1,8 +1,8 @@
-package com.example.languagecenterliabary.languagecenterliabary_features.data.repostory
+package com.novasa.languagecenter.languagecenterliabary_features.data.repostory
 
 import android.util.Log
-import com.example.languagecenterliabary.languagecenterliabary_features.data.remote.Api
-import com.example.languagecenterliabary.languagecenterliabary_features.domain.api_models.PostStringModel
+import com.novasa.languagecenter.languagecenterliabary_features.data.remote.Api
+import com.novasa.languagecenter.languagecenterliabary_features.domain.api_models.PostStringModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

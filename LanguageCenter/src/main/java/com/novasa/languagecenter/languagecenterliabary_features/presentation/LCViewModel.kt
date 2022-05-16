@@ -1,11 +1,11 @@
-package com.example.languagecenterliabary.languagecenterliabary_features.presentation
+package com.novasa.languagecenter.languagecenterliabary_features.presentation
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.languagecenterliabary.languagecenterliabary_features.data.remote.Api
+import com.novasa.languagecenter.languagecenterliabary_features.data.remote.Api
 import com.novasa.languagecenter.languagecenterliabary_features.domain.dao_models.DaoStringModel
-import com.example.languagecenterliabary.languagecenterliabary_features.data.repostory.DaoRepository
+import com.novasa.languagecenter.languagecenterliabary_features.data.repostory.DaoRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

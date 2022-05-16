@@ -1,10 +1,10 @@
-package com.example.languagecenterliabary.languagecenterliabary_features.data.remote
+package com.novasa.languagecenter.languagecenterliabary_features.data.remote
 
 
-import com.example.languagecenterliabary.languagecenterliabary_features.domain.api_models.AccountInfoModel
-import com.example.languagecenterliabary.languagecenterliabary_features.domain.api_models.LanguageModel
-import com.example.languagecenterliabary.languagecenterliabary_features.domain.api_models.PostStringModel
-import com.example.languagecenterliabary.languagecenterliabary_features.domain.api_models.StringModel
+import com.novasa.languagecenter.languagecenterliabary_features.domain.api_models.AccountInfoModel
+import com.novasa.languagecenter.languagecenterliabary_features.domain.api_models.LanguageModel
+import com.novasa.languagecenter.languagecenterliabary_features.domain.api_models.PostStringModel
+import com.novasa.languagecenter.languagecenterliabary_features.domain.api_models.StringModel
 import okhttp3.ResponseBody
 import retrofit2.http.*
 

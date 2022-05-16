@@ -1,4 +1,4 @@
-package com.example.languagecenterliabary.languagecenterliabary_features.data.local
+package com.novasa.languagecenter.languagecenterliabary_features.data.local
 
 import androidx.room.*
 import com.novasa.languagecenter.languagecenterliabary_features.domain.dao_models.DaoStringModel
