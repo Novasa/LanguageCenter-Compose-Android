@@ -1,6 +1,7 @@
 package com.novasa.languagecenter.languagecenterliabary_features.data.repostory
 
 import com.novasa.languagecenter.languagecenterliabary_features.data.local.DaoFunctions
+import com.novasa.languagecenter.languagecenterliabary_features.domain.api_models.StringModel
 import com.novasa.languagecenter.languagecenterliabary_features.domain.dao_models.DaoStringModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -13,9 +14,9 @@ class DaoRepository @Inject constructor(private val daoFunctions: DaoFunctions) 
         daoFunctions.insert(daoStringModel)
     }
 
-    fun getAllItems(): Flow<List<DaoStringModel>> = daoFunctions.getAllItems()
+    fun getAllItems(): List<DaoStringModel> = daoFunctions.getAllItems()
 
-    suspend fun deleteItem(daoStringModel: DaoStringModel) = daoFunctions.deleteItem(daoStringModel)
+    suspend fun deleteItem(daoStringModel: List<DaoStringModel>) = daoFunctions.deleteItem(daoStringModel)
 
     suspend fun updateItem(daoStringModel: DaoStringModel) = daoFunctions.updateItem(daoStringModel)
 }
