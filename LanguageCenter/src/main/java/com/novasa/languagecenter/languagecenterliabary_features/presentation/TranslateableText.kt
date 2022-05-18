@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.novasa.languagecenter.languagecenterliabary_features.domain.dao_models.DaoStringModel
+import com.novasa.languagecenter.languagecenterliabary_features.provider.LanguageCenterProvierImpl
 import kotlinx.coroutines.flow.conflate
 
 @Composable
@@ -18,7 +19,7 @@ fun TreanslateableText(
     Button(onClick = {
         LanguageCenterViewModel.getAllItems()
         LanguageCenterViewModel.getListStrings()
-        Log.d("dataaaaaaaa", "${xx}")
+        Log.d("hello", LanguageCenterProvierImpl().config.password)
     }) {
         Text(text = xx.toString())
     }

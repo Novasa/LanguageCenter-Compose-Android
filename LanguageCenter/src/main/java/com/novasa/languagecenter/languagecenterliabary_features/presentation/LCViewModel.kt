@@ -87,6 +87,9 @@ class LCViewModel @Inject constructor(
             try {
                 val daoStrings = daoRepository.getAllItems()
                 if (daoStrings.hashCode() > 0){
+                    if (hasInternet()) {
+                        api.getListStrings(daoRepository)
+                    }
                     api.getListStrings(daoRepository)
                     getAllItems()
                 } else {

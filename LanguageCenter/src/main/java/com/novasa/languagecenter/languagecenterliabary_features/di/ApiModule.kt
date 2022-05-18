@@ -26,7 +26,7 @@ object ApiModule {
          credentials: LanguageCenterConfig,
      ): OkHttpClient.Builder {
          return OkHttpClient.Builder()
-             .authenticator( Auth("novasa", "kagekage"));
+             .authenticator( Auth(credentials.userName, credentials.password));
      }
 
     @Provides
