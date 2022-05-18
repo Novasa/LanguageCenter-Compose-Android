@@ -6,6 +6,8 @@ import com.novasa.languagecenter.languagecenterliabary_features.data.remote.Api
 import com.novasa.languagecenter.languagecenterliabary_features.domain.api_models.PostStringModel
 import com.novasa.languagecenter.languagecenterliabary_features.domain.dao_models.DaoStringModel
 import com.novasa.languagecenter.languagecenterliabary_features.presentation.LCViewModel
+import com.novasa.languagecenter.languagecenterliabary_features.use_cases.ConfigureLanguage
+import com.novasa.languagecenter.languagecenterliabary_features.use_cases.ConfigureLanguage.Companion.currentLanguage
 import com.novasa.languagecenter.languagecenterliabary_features.use_cases.UnixConverter.getDateTime
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -70,8 +72,10 @@ class ApiRepository @Inject constructor(
             try {
                 val localTimestamp = getDateTime(dao.getAllItems()[2].timestamp)
                 val remoteTimestamp = getDateTime(api.specificLanguage().timestamp)
-                if (remoteTimestamp!! >= localTimestamp!!) {
-                    val data = api.listStrings()
+                // husk at vend pilen om, inden udgivelse!!!!!!!!!!
+                if (remoteTimestamp!! <= localTimestamp!!) {
+                    ConfigureLanguage().LanguageConfiguring(api.listLanguages())
+                    val data = api.listStrings(currentLanguage)
                     var forInLoopIndex = 0
                     for (item in data) {
                         forInLoopIndex++

@@ -5,6 +5,8 @@ import com.novasa.languagecenter.languagecenterliabary_features.domain.api_model
 import com.novasa.languagecenter.languagecenterliabary_features.domain.api_models.LanguageModel
 import com.novasa.languagecenter.languagecenterliabary_features.domain.api_models.PostStringModel
 import com.novasa.languagecenter.languagecenterliabary_features.domain.api_models.StringModel
+import com.novasa.languagecenter.languagecenterliabary_features.provider.LanguageCenterLanguageProviderImpl
+import com.novasa.languagecenter.languagecenterliabary_features.provider.LanguageCenterProvierImpl
 import okhttp3.ResponseBody
 import retrofit2.http.*
 
@@ -16,16 +18,12 @@ interface Api {
     @GET("language/da?timestamp=on")
     suspend fun specificLanguage(): LanguageModel
 
-    @GET("languages")
+    @GET("languages?timestamp=on")
     suspend fun listLanguages(): List<LanguageModel>
 
-    @GET("strings?platform=android&language=da&indexing=off&timestamp=on&html=off")
-    suspend fun listStrings(): List<StringModel>
+    @GET("strings?platform=android&indexing=off&timestamp=on&html=off")
+    suspend fun listStrings(@Query("language") language: String): List<StringModel>
 
     @POST("string")
     suspend fun postString(@Body requestBody: PostStringModel): ResponseBody
-
-    companion object {
-        const val BASE_URL = "https://language.novasa.com/sorgen/api/v1/"
-    }
 }

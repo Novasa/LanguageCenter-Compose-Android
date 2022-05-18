@@ -17,6 +17,7 @@ import com.novasa.languagecenter.languagecenterliabary_features.presentation.LCV
 import com.novasa.languagecenterexample.ui.theme.AndroidLibraryTheme
 import com.novasa.languagecenter.languagecenterliabary_features.presentation.TreanslateableText
 import com.novasa.languagecenter.languagecenterliabary_features.provider.ContextProviderImpl
+import com.novasa.languagecenter.languagecenterliabary_features.provider.LanguageCenterLanguageProviderImpl
 import com.novasa.languagecenter.languagecenterliabary_features.provider.LanguageCenterProvierImpl
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.runBlocking

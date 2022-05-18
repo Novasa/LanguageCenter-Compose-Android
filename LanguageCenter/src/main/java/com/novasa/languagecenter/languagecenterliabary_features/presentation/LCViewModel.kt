@@ -88,7 +88,6 @@ class LCViewModel @Inject constructor(
                 } else {
                     _state.value = emptyList()
                 }
-
             } catch (e: IOException) {
                 Log.d("MainActivity", "${e}")
             }

@@ -4,16 +4,17 @@ import android.content.Context
 import com.novasa.languagecenter.languagecenterliabary_features.domain.api_models.LanguageCenterConfig
 import javax.inject.Inject
 
-class ContextProviderImpl @Inject constructor(): ContextProvider {
+class LanguageCenterLanguageProviderImpl @Inject constructor(
 
-    override val context: Context
-        get() = _context
+):LanguageCenterLanguageProvider {
+    override val language: String
+        get() = _language
 
-    override fun setContext(context: Context) {
-        _context = context
+    override fun setLanguage(language: String) {
+        _language = language
     }
 
     companion object {
-        private lateinit var _context: Context
+        private var _language = ""
     }
 }
