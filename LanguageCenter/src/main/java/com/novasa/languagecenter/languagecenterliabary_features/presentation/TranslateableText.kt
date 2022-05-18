@@ -11,15 +11,18 @@ import com.novasa.languagecenter.languagecenterliabary_features.provider.Languag
 import kotlinx.coroutines.flow.conflate
 
 @Composable
-fun TreanslateableText(
-    LanguageCenterViewModel: LCViewModel = viewModel()
-    //key
+fun TranslatedText(
+    LanguageCenterViewModel: LCViewModel = viewModel(),
+    TextKey: String
 ) {
-    val xx = LanguageCenterViewModel.response.collectAsState().value
-    Button(onClick = {
-        LanguageCenterViewModel.getListStrings()
-    }) {
-        Text(text = xx.toString())
+    LanguageCenterViewModel.getListStrings()
+    val translations = LanguageCenterViewModel.response.collectAsState().value
+    var displayText = ""
+    for (text in translations) {
+        if (text.key == TextKey) {
+            displayText = text.value
+        }
     }
+    Text(text = displayText)
 }
 
