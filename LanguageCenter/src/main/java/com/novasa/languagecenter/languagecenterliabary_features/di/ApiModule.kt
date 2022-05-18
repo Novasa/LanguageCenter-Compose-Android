@@ -16,14 +16,13 @@ import retrofit2.Retrofit
 import javax.inject.Singleton
 
 import okhttp3.OkHttpClient;
-import retrofit2.converter.gson.GsonConverterFactory
 
 
 @Module
 @InstallIn(SingletonComponent::class)
 object ApiModule {
 
-     private fun http (
+     private fun http(
          credentials: LanguageCenterConfig,
      ): OkHttpClient.Builder {
          return OkHttpClient.Builder()

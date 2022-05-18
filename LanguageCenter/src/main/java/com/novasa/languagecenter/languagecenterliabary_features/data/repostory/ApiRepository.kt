@@ -74,6 +74,7 @@ class ApiRepository @Inject constructor(
                         )
                     )
                 }
+                Log.d("bataaaa", "${data}")
             } catch (e: IOException) {
                 Log.d("MainActivity", "${e}")
             }

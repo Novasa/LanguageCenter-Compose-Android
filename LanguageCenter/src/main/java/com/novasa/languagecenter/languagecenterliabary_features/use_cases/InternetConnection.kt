@@ -1,4 +1,4 @@
-package com.novasa.languagecenter.languagecenterliabary_features.data.repostory
+package com.novasa.languagecenter.languagecenterliabary_features.use_cases
 
 import android.content.Context
 import android.net.ConnectivityManager

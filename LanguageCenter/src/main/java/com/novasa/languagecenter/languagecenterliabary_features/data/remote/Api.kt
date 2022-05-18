@@ -1,7 +1,6 @@
 package com.novasa.languagecenter.languagecenterliabary_features.data.remote
 
-import com.novasa.languagecenter.languagecenterliabary_features.domain.api_models.*
-import com.novasa.languagecenter.languagecenterliabary_features.provider.LanguageCenterProvierImpl
+
 import com.novasa.languagecenter.languagecenterliabary_features.domain.api_models.AccountInfoModel
 import com.novasa.languagecenter.languagecenterliabary_features.domain.api_models.LanguageModel
 import com.novasa.languagecenter.languagecenterliabary_features.domain.api_models.PostStringModel
@@ -14,7 +13,7 @@ interface Api {
     @GET("info")
     suspend fun accountInfo(): AccountInfoModel
 
-    @GET("language/da?timestamp=on")
+    @GET("language/da")
     suspend fun specificLanguage(): LanguageModel
 
     @GET("languages")
@@ -27,6 +26,6 @@ interface Api {
     suspend fun postString(@Body requestBody: PostStringModel): ResponseBody
 
     companion object {
-        val BASE_URL = LanguageCenterProvierImpl().config.baseUrl
+        const val BASE_URL = "https://language.novasa.com/sorgen/api/v1/"
     }
 }
