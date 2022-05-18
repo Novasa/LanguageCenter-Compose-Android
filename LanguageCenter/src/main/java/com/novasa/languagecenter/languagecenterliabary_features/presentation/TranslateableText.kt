@@ -17,9 +17,7 @@ fun TreanslateableText(
 ) {
     val xx = LanguageCenterViewModel.response.collectAsState().value
     Button(onClick = {
-        LanguageCenterViewModel.getAllItems()
         LanguageCenterViewModel.getListStrings()
-        Log.d("hello", LanguageCenterProvierImpl().config.password)
     }) {
         Text(text = xx.toString())
     }

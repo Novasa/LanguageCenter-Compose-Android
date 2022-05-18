@@ -13,9 +13,9 @@ class DaoRepository @Inject constructor(private val daoFunctions: DaoFunctions) 
         daoFunctions.insert(daoStringModel)
     }
 
-    fun getAllItems(): Flow<List<DaoStringModel>> = daoFunctions.getAllItems()
+    fun getAllItems(): List<DaoStringModel> = daoFunctions.getAllItems()
 
-    suspend fun deleteItem(daoStringModel: DaoStringModel) = daoFunctions.deleteItem(daoStringModel)
+    suspend fun deleteItem(daoStringModel: List<DaoStringModel>) = daoFunctions.deleteItem(daoStringModel)
 
     suspend fun updateItem(daoStringModel: DaoStringModel) = daoFunctions.updateItem(daoStringModel)
 }

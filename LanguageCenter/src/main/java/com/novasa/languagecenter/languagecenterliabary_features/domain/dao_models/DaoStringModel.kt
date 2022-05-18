@@ -10,6 +10,7 @@ data class DaoStringModel(
     val key: String,
     val value: String,
     val language: String,
+    val timestamp: Int,
 )
 
 

@@ -10,10 +10,10 @@ interface DaoFunctions {
     suspend fun insert(daoStringModel: DaoStringModel)
 
     @Query("select * from TranslationsEntity")
-    fun getAllItems(): Flow<List<DaoStringModel>>
+    fun getAllItems(): List<DaoStringModel>
 
     @Delete
-    suspend fun deleteItem(daoStringModel: DaoStringModel)
+    suspend fun deleteItem(daoStringModel: List<DaoStringModel>)
 
     @Update
     suspend fun updateItem(daoStringModel: DaoStringModel)

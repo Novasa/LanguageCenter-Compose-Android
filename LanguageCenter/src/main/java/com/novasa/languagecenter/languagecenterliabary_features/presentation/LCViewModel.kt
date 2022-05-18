@@ -8,8 +8,10 @@ import com.novasa.languagecenter.languagecenterliabary_features.data.remote.Api
 import com.novasa.languagecenter.languagecenterliabary_features.data.repostory.ApiRepository
 import com.novasa.languagecenter.languagecenterliabary_features.domain.dao_models.DaoStringModel
 import com.novasa.languagecenter.languagecenterliabary_features.data.repostory.DaoRepository
+import com.novasa.languagecenter.languagecenterliabary_features.domain.api_models.StringModel
 import com.novasa.languagecenter.languagecenterliabary_features.use_cases.hasInternet
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.io.IOException
@@ -30,9 +32,7 @@ class LCViewModel @Inject constructor(
         daoRepository.insert(daoStringModel)
     }
 
-    fun delete(daoStringModel: DaoStringModel) = viewModelScope.launch {
-        daoRepository.deleteItem(daoStringModel)
-    }
+
 
     fun update(daoStringModel: DaoStringModel) = viewModelScope.launch {
         daoRepository.updateItem(daoStringModel)
@@ -66,16 +66,9 @@ class LCViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val data = daoRepository.getAllItems()
-                val qq = daoRepository.insert(
-                    daoStringModel = DaoStringModel(
-                        id = 1,
-                        language = "da",
-                        key = "myKey",
-                        value = "hello world"
-                    )
-                )
+
                 data
-                qq
+
                 Log.d("dataaaaaaaa", "${data}")
             } catch (e: IOException) {
                 Log.d("MainActivity", "${e}")
@@ -83,34 +76,22 @@ class LCViewModel @Inject constructor(
         }
     }
     fun getListStrings() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
+                var listOfDaoStrings = emptyList<DaoStringModel>()
                 val daoStrings = daoRepository.getAllItems()
                 if (daoStrings.hashCode() > 0){
                     if (hasInternet()) {
                         api.getListStrings(daoRepository)
                     }
-                    api.getListStrings(daoRepository)
-                    getAllItems()
+                    _state.value = daoStrings
                 } else {
                     _state.value = emptyList()
                 }
+
             } catch (e: IOException) {
                 Log.d("MainActivity", "${e}")
             }
         }
-    }
-
-    init {
-        getAllItems()
-    }
-
-    fun getAllItems() = viewModelScope.launch {
-        daoRepository.getAllItems()
-            .catch { e->
-                Log.d("main", "Exception: ${e.message}")
-            }.collect {
-                _state.value = it
-            }
     }
 }

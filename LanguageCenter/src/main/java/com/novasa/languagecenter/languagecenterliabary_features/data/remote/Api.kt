@@ -13,13 +13,13 @@ interface Api {
     @GET("info")
     suspend fun accountInfo(): AccountInfoModel
 
-    @GET("language/da")
+    @GET("language/da?timestamp=on")
     suspend fun specificLanguage(): LanguageModel
 
     @GET("languages")
     suspend fun listLanguages(): List<LanguageModel>
 
-    @GET("strings?platform=android&language=da&indexing=off&timestamp=off&html=off")
+    @GET("strings?platform=android&language=da&indexing=off&timestamp=on&html=off")
     suspend fun listStrings(): List<StringModel>
 
     @POST("string")
