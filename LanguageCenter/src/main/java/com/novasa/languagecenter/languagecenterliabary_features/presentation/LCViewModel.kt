@@ -47,6 +47,7 @@ class LCViewModel @Inject constructor(
             try {
                 if (hasInternet()) {
                     api.postString(platform, category, key, value, comment)
+                    getListStrings()
                 }
             } catch (e: IOException) {
                 Log.d("MainActivity", "$e")
@@ -70,15 +71,17 @@ class LCViewModel @Inject constructor(
             currentStatus = Status.INITIALIZING
             try {
                 val daoStrings = daoRepository.getAllItems()
-                if (daoStrings.hashCode() > 0){
-                    if (hasInternet()) {
-                        currentStatus = Status.UPDATING
-                        api.getListStrings(daoRepository)
-                    }
+                if (hasInternet()) {
+                    currentStatus = Status.UPDATING
+                    api.getListStrings(daoRepository)
+                }
+
+                if (daoStrings.isNotEmpty()) {
                     _state.value = daoStrings
                 } else {
-                    _state.value = emptyList()
+                    _state.value = emptyList() //fallback
                 }
+                
             } catch (e: IOException) {
                 Log.d("MainActivity", "$e")
                 currentStatus = Status.FAILED
