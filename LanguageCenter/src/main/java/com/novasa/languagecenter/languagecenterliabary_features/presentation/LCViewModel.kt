@@ -9,6 +9,7 @@ import com.novasa.languagecenter.languagecenterliabary_features.domain.dao_model
 import com.novasa.languagecenter.languagecenterliabary_features.use_cases.hasInternet
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -30,66 +31,60 @@ class LCViewModel @Inject constructor(
 
     var currentStatus = Status.NOT_INITIALIZED
 
-    val _state = MutableStateFlow<List<DaoStringModel>>(emptyList())
+    private val _state = MutableStateFlow<List<DaoStringModel>>(emptyList())
 
     val response: StateFlow<List<DaoStringModel>>
         get() = _state
 
-    fun getAccountInfo() {
+    fun postString (
+        platform: String,
+        category: String,
+        key: String,
+        value: String,
+        comment: String,
+    ) {
         viewModelScope.launch {
             try {
-                val data = api.getAccountInfo()
-                data
-                Log.d("dataaaaaaaa", "${data}")
+                if (hasInternet()) {
+                    api.postString(platform, category, key, value, comment)
+                }
             } catch (e: IOException) {
-                Log.d("MainActivity", "${e}")
-            }
-        }
-    }
-    fun getSpecificLanguage() {
-        viewModelScope.launch {
-            try {
-                val data = api.getSpecificLanguage()
-                data
-                Log.d("dataaaaaaaa", "${data}")
-            } catch (e: IOException) {
-                Log.d("MainActivity", "${e}")
+                Log.d("MainActivity", "$e")
             }
         }
     }
 
-    fun getListLanguages() {
-        viewModelScope.launch {
-            try {
-                val data = daoRepository.getAllItems()
-
-                data
-
-                Log.d("dataaaaaaaa", "${data}")
-            } catch (e: IOException) {
-                Log.d("MainActivity", "${e}")
-            }
-        }
-    }
-    fun getListStrings(): StateFlow<List<DaoStringModel>> {
+    fun deleteDaoTranslations () {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                var listOfDaoStrings = emptyList<DaoStringModel>()
+                daoRepository.deleteItem(daoRepository.getAllItems())
+                _state.value = daoRepository.getAllItems()
+            } catch (e: IOException) {
+                Log.d("MainActivity", "$e")
+            }
+        }
+    }
+
+    fun getListStrings(): StateFlow<List<DaoStringModel>> {
+        viewModelScope.launch(Dispatchers.IO) {
+            currentStatus = Status.INITIALIZING
+            try {
                 val daoStrings = daoRepository.getAllItems()
                 if (daoStrings.hashCode() > 0){
                     if (hasInternet()) {
                         currentStatus = Status.UPDATING
                         api.getListStrings(daoRepository)
                     }
-                    currentStatus = Status.INITIALIZING
                     _state.value = daoStrings
                 } else {
                     _state.value = emptyList()
                 }
-                currentStatus = Status.READY
             } catch (e: IOException) {
-                Log.d("MainActivity", "${e}")
+                Log.d("MainActivity", "$e")
                 currentStatus = Status.FAILED
+            }
+            if (currentStatus != Status.FAILED){
+                currentStatus = Status.READY
             }
         }
         return response

@@ -1,12 +1,11 @@
 package com.novasa.languagecenter.languagecenterliabary_features.provider
 
-import android.content.Context
-import com.novasa.languagecenter.languagecenterliabary_features.domain.api_models.LanguageCenterConfig
+
 import javax.inject.Inject
 
-class LanguageCenterLanguageProviderImpl @Inject constructor(
+class LCLanguageProviderImpl @Inject constructor(
 
-):LanguageCenterLanguageProvider {
+):LCLanguageProvider {
     override val language: String
         get() = _language
 
@@ -14,6 +13,7 @@ class LanguageCenterLanguageProviderImpl @Inject constructor(
         _language = language
     }
 
+    //fordi jeg ik ved hvordan jeg får adgang til bind
     companion object {
         private var _language = ""
     }

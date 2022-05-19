@@ -1,10 +1,11 @@
 package com.novasa.languagecenter.languagecenterliabary_features.provider
 
 import android.content.Context
-import com.novasa.languagecenter.languagecenterliabary_features.domain.api_models.LanguageCenterConfig
 import javax.inject.Inject
 
-class ContextProviderImpl @Inject constructor(): ContextProvider {
+class LCContextProviderImpl @Inject constructor(
+
+): LCContextProvider {
 
     override val context: Context
         get() = _context
@@ -12,8 +13,8 @@ class ContextProviderImpl @Inject constructor(): ContextProvider {
     override fun setContext(context: Context) {
         _context = context
     }
-
+    //fordi jeg ik ved hvordan jeg får adgang til bind
     companion object {
-        private lateinit var _context: Context
+        lateinit var _context: Context
     }
 }

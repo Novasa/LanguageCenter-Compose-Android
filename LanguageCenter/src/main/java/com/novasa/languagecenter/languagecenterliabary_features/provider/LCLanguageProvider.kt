@@ -1,13 +1,11 @@
 package com.novasa.languagecenter.languagecenterliabary_features.provider
 
-import android.content.Context
 import com.novasa.languagecenter.languagecenterliabary_features.domain.api_models.LanguageCenterConfig
 
-interface ContextProvider {
+interface LCLanguageProvider {
+    val language: String
 
-    val context: Context
-
-    fun setContext (
-        config: Context
+    fun setLanguage (
+        language: String
     )
 }

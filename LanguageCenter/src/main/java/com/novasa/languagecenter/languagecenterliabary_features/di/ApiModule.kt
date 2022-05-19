@@ -4,8 +4,7 @@ import com.novasa.languagecenter.languagecenterliabary_features.data.remote.Api
 import com.novasa.languagecenter.languagecenterliabary_features.data.repostory.Auth
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.novasa.languagecenter.languagecenterliabary_features.domain.api_models.LanguageCenterConfig
-import com.novasa.languagecenter.languagecenterliabary_features.provider.LanguageCenterProvider
-import com.novasa.languagecenter.languagecenterliabary_features.provider.LanguageCenterProvierImpl
+import com.novasa.languagecenter.languagecenterliabary_features.provider.LCProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -32,7 +31,7 @@ object ApiModule {
     @Provides
     @Singleton
     fun api(
-        provider: LanguageCenterProvider
+        provider: LCProvider
     ): Api = Retrofit.Builder()
         .client(http(provider.config).build())
         .baseUrl(provider.config.baseUrl)

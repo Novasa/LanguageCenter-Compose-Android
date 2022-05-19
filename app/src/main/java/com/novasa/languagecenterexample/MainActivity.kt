@@ -1,7 +1,6 @@
 package com.novasa.languagecenterexample
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -12,20 +11,14 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.novasa.languagecenter.languagecenterliabary_features.data.local.DaoDatabase
 import com.novasa.languagecenter.languagecenterliabary_features.domain.api_models.LanguageCenterConfig
-import com.novasa.languagecenter.languagecenterliabary_features.domain.dao_models.DaoStringModel
 import com.novasa.languagecenter.languagecenterliabary_features.presentation.LCViewModel
 import com.novasa.languagecenter.languagecenterliabary_features.presentation.TranslatedText
 import com.novasa.languagecenterexample.ui.theme.AndroidLibraryTheme
-import com.novasa.languagecenter.languagecenterliabary_features.provider.ContextProviderImpl
-import com.novasa.languagecenter.languagecenterliabary_features.provider.LanguageCenterLanguageProvider
-import com.novasa.languagecenter.languagecenterliabary_features.provider.LanguageCenterLanguageProviderImpl
-import com.novasa.languagecenter.languagecenterliabary_features.provider.LanguageCenterProvierImpl
+import com.novasa.languagecenter.languagecenterliabary_features.provider.LCContextProviderImpl
+import com.novasa.languagecenter.languagecenterliabary_features.provider.LCLanguageProviderImpl
+import com.novasa.languagecenter.languagecenterliabary_features.provider.LCProviderImpl
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.runBlocking
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -34,26 +27,44 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        LanguageCenterProvierImpl().configure(
+        LCProviderImpl().configure(
             config = LanguageCenterConfig(
                 baseUrl = "https://language.novasa.com/sorgen/api/v1/",
                 password = "kagekage",
                 userName = "novasa",
             )
         )
-        ContextProviderImpl().setContext(this)
-        LanguageCenterLanguageProviderImpl().setLanguage("en")
+        LCContextProviderImpl().setContext(this)
+        LCLanguageProviderImpl().setLanguage("en")
         setContent {
             val Translations = viewModel.getListStrings().collectAsState().value
             AndroidLibraryTheme {
                 Box(modifier = Modifier.fillMaxSize()) {
                     Column() {
+                        Button(
+                            onClick = {
+                                viewModel.postString(
+                                    platform = "android",
+                                    category = "LC test3",
+                                    key = "LC_test3",
+                                    value = "second test from LC libary",
+                                    comment = "this is just a test"
+                                )
+                            }
+                        ) {
+                            Text(text = "upload string")
+                        }
+                        Button(
+                            onClick = { viewModel.deleteDaoTranslations() }
+                        ) {
+                            Text(text = "delete dao")
+                        }
                         TranslatedText(
                             LanguageCenterViewModel = viewModel,
-                            TextKey = "test.test"
+                            TextKey = "test.test",
                         )
                         if (Translations.isNotEmpty()) {
-                            Text(text = Translations[0].value)
+                            Text(text = Translations.toString())
                         }
                     }
                 }

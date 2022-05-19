@@ -5,8 +5,6 @@ import com.novasa.languagecenter.languagecenterliabary_features.domain.api_model
 import com.novasa.languagecenter.languagecenterliabary_features.domain.api_models.LanguageModel
 import com.novasa.languagecenter.languagecenterliabary_features.domain.api_models.PostStringModel
 import com.novasa.languagecenter.languagecenterliabary_features.domain.api_models.StringModel
-import com.novasa.languagecenter.languagecenterliabary_features.provider.LanguageCenterLanguageProviderImpl
-import com.novasa.languagecenter.languagecenterliabary_features.provider.LanguageCenterProvierImpl
 import okhttp3.ResponseBody
 import retrofit2.http.*
 
