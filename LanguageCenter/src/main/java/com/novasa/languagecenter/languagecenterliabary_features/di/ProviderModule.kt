@@ -1,9 +1,9 @@
 package com.novasa.languagecenter.languagecenterliabary_features.di
 
-import com.novasa.languagecenter.languagecenterliabary_features.provider.LCContextProviderImpl
-import com.novasa.languagecenter.languagecenterliabary_features.provider.LCLanguageProviderImpl
 import com.novasa.languagecenter.languagecenterliabary_features.provider.LCProvider
 import com.novasa.languagecenter.languagecenterliabary_features.provider.LCProviderImpl
+import com.novasa.languagecenter.languagecenterliabary_features.use_cases.ConfigureLanguage
+import com.novasa.languagecenter.languagecenterliabary_features.use_cases.ConfigureLanguageImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -18,4 +18,14 @@ interface ProviderModule {
     fun bindProvider(
         instance: LCProviderImpl
     ): LCProvider
+}
+
+@Module
+@InstallIn(SingletonComponent::class)
+interface ProvideLanguageModule {
+    @Binds
+    @Singleton
+    fun bindProvider(
+        instance: ConfigureLanguageImpl
+    ): ConfigureLanguage
 }

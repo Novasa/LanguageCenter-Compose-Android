@@ -3,14 +3,10 @@ package com.novasa.languagecenter.languagecenterliabary_features.domain.dao_mode
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "TranslationsEntity")
-data class DaoStringModel(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int? = null,
+@Entity(tableName = "LanguageEntity")
+data class LanguageEntity(
+    @PrimaryKey
     val key: String,
     val value: String,
     val language: String,
-    val timestamp: Int,
 )
-
-

@@ -24,4 +24,5 @@ interface Api {
 
     @POST("string")
     suspend fun postString(@Body requestBody: PostStringModel): ResponseBody
+
 }

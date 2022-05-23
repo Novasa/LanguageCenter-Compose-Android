@@ -5,13 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.novasa.languagecenter.languagecenterliabary_features.data.repostory.ApiRepository
 import com.novasa.languagecenter.languagecenterliabary_features.data.repostory.DaoRepository
-import com.novasa.languagecenter.languagecenterliabary_features.domain.dao_models.DaoStringModel
-import com.novasa.languagecenter.languagecenterliabary_features.use_cases.hasInternet
+import com.novasa.languagecenter.languagecenterliabary_features.domain.dao_models.TranslationEntity
+import com.novasa.languagecenter.languagecenterliabary_features.provider.LCProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.io.IOException
 import javax.inject.Inject
@@ -19,7 +17,8 @@ import javax.inject.Inject
 @HiltViewModel
 class LCViewModel @Inject constructor(
     private val daoRepository: DaoRepository,
-    private val api: ApiRepository
+    private val api: ApiRepository,
+    val provider: LCProvider
 ): ViewModel() {
     enum class Status {
         NOT_INITIALIZED,
@@ -29,12 +28,15 @@ class LCViewModel @Inject constructor(
         FAILED
     }
 
-    var currentStatus = Status.NOT_INITIALIZED
+    private val _currentStatus = MutableStateFlow(Status.NOT_INITIALIZED)
 
-    private val _state = MutableStateFlow<List<DaoStringModel>>(emptyList())
+    val currentStatus: StateFlow<Status>
+        get() = _currentStatus.asStateFlow()
 
-    val response: StateFlow<List<DaoStringModel>>
-        get() = _state
+    private val _state = MutableStateFlow<Flow<List<TranslationEntity>>>(flowOf(emptyList()))
+
+    val response: StateFlow<Flow<List<TranslationEntity>>>
+        get() = _state.asStateFlow()
 
     fun postString (
         platform: String,
@@ -45,10 +47,8 @@ class LCViewModel @Inject constructor(
     ) {
         viewModelScope.launch {
             try {
-                if (hasInternet()) {
-                    api.postString(platform, category, key, value, comment)
-                    getListStrings()
-                }
+                api.postString(platform, category, key, value, comment)
+                getListStrings()
             } catch (e: IOException) {
                 Log.d("MainActivity", "$e")
             }
@@ -66,28 +66,31 @@ class LCViewModel @Inject constructor(
         }
     }
 
-    fun getListStrings(): StateFlow<List<DaoStringModel>> {
+    fun getListStrings(): StateFlow<Flow<List<TranslationEntity>>> {
         viewModelScope.launch(Dispatchers.IO) {
-            currentStatus = Status.INITIALIZING
+            _currentStatus.value = Status.INITIALIZING
+            val list = response.value
             try {
+                list
                 val daoStrings = daoRepository.getAllItems()
-                if (hasInternet()) {
-                    currentStatus = Status.UPDATING
-                    api.getListStrings(daoRepository)
+                _currentStatus.value = Status.UPDATING
+                val data = api.getListStrings()
+                for (item in data) {
+                    daoRepository.insert(
+                        TranslationEntity(
+                            key = item.key,
+                            value = item.value,
+                            language = "da",
+                            timestamp = item.timestamp
+                        )
+                    )
                 }
-
-                if (daoStrings.isNotEmpty()) {
-                    _state.value = daoStrings
-                } else {
-                    _state.value = emptyList() //fallback
-                }
-                
+                api.getListStrings()
+                _state.value = daoStrings
+                _currentStatus.value = Status.READY
             } catch (e: IOException) {
                 Log.d("MainActivity", "$e")
-                currentStatus = Status.FAILED
-            }
-            if (currentStatus != Status.FAILED){
-                currentStatus = Status.READY
+                _currentStatus.value = Status.FAILED
             }
         }
         return response

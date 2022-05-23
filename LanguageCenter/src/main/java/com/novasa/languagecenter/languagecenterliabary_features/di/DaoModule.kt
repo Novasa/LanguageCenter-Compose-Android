@@ -3,7 +3,7 @@ package com.novasa.languagecenter.languagecenterliabary_features.di
 import android.app.Application
 import androidx.room.Room
 import com.novasa.languagecenter.languagecenterliabary_features.data.local.DaoFunctions
-import com.novasa.languagecenter.languagecenterliabary_features.data.local.DaoDatabase
+import com.novasa.languagecenter.languagecenterliabary_features.data.local.LCDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,12 +15,12 @@ import javax.inject.Singleton
 object DaoModule {
     @Provides
     @Singleton
-    fun providesDatabase(application: Application): DaoDatabase = Room
-        .databaseBuilder(application, DaoDatabase::class.java, "TodoDatabase")
+    fun providesDatabase(application: Application): LCDatabase = Room
+        .databaseBuilder(application, LCDatabase::class.java, "TodoDatabase")
         .fallbackToDestructiveMigration()
         .build()
 
     @Provides
     @Singleton
-    fun providesDao(db: DaoDatabase): DaoFunctions = db.getDao()
+    fun providesDao(db: LCDatabase): DaoFunctions = db.getDao()
 }
