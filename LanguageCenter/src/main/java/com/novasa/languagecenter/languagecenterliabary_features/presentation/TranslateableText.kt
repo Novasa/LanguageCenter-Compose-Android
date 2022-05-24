@@ -20,7 +20,7 @@ fun TranslatedText(
     var displayText = ""
     for (text in translations) {
         if (text.key == TextKey) {
-            displayText = text.value
+            displayText = translations[text.key].toString()
         }
     }
     Text(

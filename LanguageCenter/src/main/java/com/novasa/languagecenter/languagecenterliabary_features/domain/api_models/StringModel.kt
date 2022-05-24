@@ -9,5 +9,4 @@ data class StringModel (
     val key: String,
     val value: String,
     val language: String,
-    val timestamp: Int,
 )

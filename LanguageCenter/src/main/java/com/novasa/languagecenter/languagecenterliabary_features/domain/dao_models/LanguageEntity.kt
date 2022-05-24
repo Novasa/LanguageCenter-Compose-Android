@@ -6,7 +6,8 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "LanguageEntity")
 data class LanguageEntity(
     @PrimaryKey
-    val key: String,
-    val value: String,
-    val language: String,
+    val name: String,
+    val codename: String,
+    val is_fallback: Boolean,
+    val timestamp: Int
 )

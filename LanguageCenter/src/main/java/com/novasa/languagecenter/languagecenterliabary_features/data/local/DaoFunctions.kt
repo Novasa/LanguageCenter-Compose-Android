@@ -1,20 +1,27 @@
 package com.novasa.languagecenter.languagecenterliabary_features.data.local
 
 import androidx.room.*
+import com.novasa.languagecenter.languagecenterliabary_features.domain.dao_models.LanguageEntity
 import com.novasa.languagecenter.languagecenterliabary_features.domain.dao_models.TranslationEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface DaoFunctions {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(TranslationEntity: TranslationEntity)
+    suspend fun insertTranslation(translationEntity: List<TranslationEntity>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertLanguage(languageEntity: LanguageEntity)
 
     @Query("select * from TranslationsEntity")
-    fun getAllItems(): Flow<List<TranslationEntity>>
+    fun getTranslations(): Flow<List<TranslationEntity>>
+
+    @Query("select * from LanguageEntity")
+    fun getLanguageInfo(): LanguageEntity
 
     @Delete
-    suspend fun deleteItem(TranslationEntity: kotlinx.coroutines.flow.Flow<kotlin.collections.List<com.novasa.languagecenter.languagecenterliabary_features.domain.dao_models.TranslationEntity>>)
+    suspend fun deleteItem(translationEntity: List<TranslationEntity>)
 
     @Update
-    suspend fun updateItem(TranslationEntity: TranslationEntity)
+    suspend fun updateItem(translationEntity: TranslationEntity)
 }

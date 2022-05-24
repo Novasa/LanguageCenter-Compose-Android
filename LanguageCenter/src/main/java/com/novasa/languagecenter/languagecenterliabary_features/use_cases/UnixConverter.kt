@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat
 object UnixConverter {
     fun getDateTime(s: Int): Int {
         try {
-            val sdf = SimpleDateFormat("MMddyyyy")
+            val sdf = SimpleDateFormat("ddMMyyyy")
             val netDate = Date(s.toLong() * 1000)
             return sdf.format(netDate).toInt()
         } catch (e: Exception) {

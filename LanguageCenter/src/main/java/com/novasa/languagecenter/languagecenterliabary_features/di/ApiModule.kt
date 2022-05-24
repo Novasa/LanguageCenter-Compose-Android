@@ -1,5 +1,6 @@
 package com.novasa.languagecenter.languagecenterliabary_features.di
 
+import android.util.Log
 import com.novasa.languagecenter.languagecenterliabary_features.data.remote.Api
 import com.novasa.languagecenter.languagecenterliabary_features.data.repostory.Auth
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
@@ -24,8 +25,9 @@ object ApiModule {
      private fun http(
          credentials: LanguageCenterConfig,
      ): OkHttpClient.Builder {
+         Log.d("credentials", "${credentials.userName} ${credentials.password}")
          return OkHttpClient.Builder()
-             .authenticator( Auth(credentials.userName, credentials.password));
+             .authenticator( Auth(credentials.password, credentials.userName))
      }
 
     @Provides

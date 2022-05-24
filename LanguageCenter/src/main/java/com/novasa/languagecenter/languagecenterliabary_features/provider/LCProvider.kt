@@ -7,11 +7,21 @@ interface LCProvider {
 
     val config: LanguageCenterConfig
 
-    var language: String
+    val language: String
+
+    val currentLanguage: String
 
 
     fun configure (
         config: LanguageCenterConfig
+    )
+
+    fun setLanguage(
+        language: String
+    )
+
+    fun setCurrentLanguage(
+        language: String
     )
 
 }
