@@ -36,19 +36,29 @@ class LCViewModel @Inject constructor(
         FAILED
     }
 
+    private val daoTranslationsToMap = daoRepository.getTranslations()
+        .map { list -> list.associateBy { it.key } }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.Eagerly,
+            initialValue = emptyMap()
+        )
+
     private val _currentStatus = MutableStateFlow(Status.NOT_INITIALIZED)
 
     val currentStatus: StateFlow<Status>
         get() = _currentStatus.asStateFlow()
 
-    val response: StateFlow<Map<String?, TranslationEntity>>
-        get() = daoRepository.getTranslations()
-            .map { list -> list.associateBy { it.key } }
-            .stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.Eagerly,
-                initialValue = emptyMap()
-            )
+    fun getReponse(
+        category: String,
+        key: String,
+        value: String,
+    ): StateFlow<TranslationEntity?> {
+        val stateFlowOfTranslationEntity = MutableStateFlow(daoTranslationsToMap.value[key])
+        
+        return responeInstance(stateFlowOfTranslationEntity).response
+    }
+
 
     fun postString (
         platform: String,
@@ -128,4 +138,11 @@ class LCViewModel @Inject constructor(
             }
         }
     }
+}
+
+class responeInstance(
+    private val stateFlowOfTranslationEntity: MutableStateFlow<TranslationEntity?>
+) {
+    val response: StateFlow<TranslationEntity?>
+        get() = stateFlowOfTranslationEntity
 }

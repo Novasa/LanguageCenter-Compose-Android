@@ -1,6 +1,7 @@
 package com.novasa.languagecenterexample
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -36,8 +37,10 @@ class MainActivity : ComponentActivity() {
         viewModel.provider.setLanguage("da")
         viewModel.getListStrings()
         setContent {
-            val Translations = viewModel.response.collectAsState().value
+            val Translations = viewModel.getReponse("","test.test","").collectAsState().value
             val status = viewModel.currentStatus.collectAsState().value
+            Log.d("response2", "${Translations}")
+
             AndroidLibraryTheme {
                 Box(modifier = Modifier.fillMaxSize()) {
                     Column() {

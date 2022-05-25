@@ -16,10 +16,9 @@ import com.novasa.languagecenter.languagecenterliabary_features.domain.api_model
 
 data class TranslationEntity(
     @PrimaryKey
-    val key: String?,
-    val value: String?,
-    val language: String?,
-    val htmlTags: List<AccountInfoModel> = listOf()
+    val key: String,
+    val value: String,
+    val language: String,
 )
 
 

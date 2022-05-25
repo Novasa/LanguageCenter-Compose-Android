@@ -5,9 +5,9 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class StringModel (
-    val key: String? = "",
-    val value: String? = "",
-    val language: String? = "",
+    val key: String = "",
+    val value: String = "",
+    val language: String = "",
     @SerializedName("html_tags")
     val htmlTags: ArrayList<String> = arrayListOf()
 )
