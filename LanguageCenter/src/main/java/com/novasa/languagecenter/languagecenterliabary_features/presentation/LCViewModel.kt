@@ -62,11 +62,13 @@ class LCViewModel @Inject constructor(
 
         viewModelScope.launch(Dispatchers.IO) {
             if (daoTranslationsToMap.value[key] == null) {
-                postString(
-                    category = category,
-                    key = key,
-                    value = value
-                )
+                if (hasInternet.hasInternet()) {
+                    postString(
+                        category = category,
+                        key = key,
+                        value = value
+                    )
+                }
                 runBlocking {
                     val translationData = daoTranslationsToMap.value[key]
                     daoRepository.insertTranslation(
@@ -83,7 +85,7 @@ class LCViewModel @Inject constructor(
         return responeInstance(stateFlowOfTranslationEntity).response
     }
 
-    
+
 
 
     fun postString (
