@@ -28,8 +28,9 @@ class MainActivity : ComponentActivity() {
         viewModel.provider.configure(
             config = LanguageCenterConfig (
                 baseUrl = "https://language.novasa.com/sorgen/api/v1/",
-                password = "kagekage",
                 userName = "novasa",
+                password = "kagekage",
+                html = false
             )
         )
         viewModel.provider.setLanguage("da")

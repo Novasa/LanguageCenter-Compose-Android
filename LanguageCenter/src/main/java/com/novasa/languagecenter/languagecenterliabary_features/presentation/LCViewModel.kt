@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.novasa.languagecenter.languagecenterliabary_features.data.repostory.ApiRepository
 import com.novasa.languagecenter.languagecenterliabary_features.data.repostory.DaoRepository
-import com.novasa.languagecenter.languagecenterliabary_features.domain.api_models.LanguageModel
+import com.novasa.languagecenter.languagecenterliabary_features.domain.api_models.AccountInfoModel
 import com.novasa.languagecenter.languagecenterliabary_features.domain.api_models.StringModel
 import com.novasa.languagecenter.languagecenterliabary_features.domain.dao_models.LanguageEntity
 import com.novasa.languagecenter.languagecenterliabary_features.domain.dao_models.TranslationEntity
@@ -17,7 +17,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.io.IOException
+import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 @HiltViewModel
 class LCViewModel @Inject constructor(
@@ -39,7 +41,7 @@ class LCViewModel @Inject constructor(
     val currentStatus: StateFlow<Status>
         get() = _currentStatus.asStateFlow()
 
-    val response: StateFlow<Map<String, TranslationEntity>>
+    val response: StateFlow<Map<String?, TranslationEntity>>
         get() = daoRepository.getTranslations()
             .map { list -> list.associateBy { it.key } }
             .stateIn(
@@ -80,7 +82,9 @@ class LCViewModel @Inject constructor(
                 val remoteLanguageInfo = api.getSpecificLanguage(provider.currentLanguage)
                 val remoteTranslations = api.getListStrings(provider.currentLanguage)
 
-                if (localLanguageInfo == null){
+                Log.d("html", "${remoteTranslations}")
+
+                if (true){
                     _currentStatus.value = Status.UPDATING
                     daoRepository.insertLanguage(
                         languageEntity = LanguageEntity(
@@ -91,14 +95,15 @@ class LCViewModel @Inject constructor(
                         )
                     )
                     daoRepository.insertTranslations(
-                         remoteTranslations.map {
-                             TranslationEntity(
-                                 key = it.key,
-                                 value = it.value,
-                                 language = it.language,
-                             )
-                         }
+                        remoteTranslations.map {
+                            TranslationEntity(
+                                key = it.key,
+                                value = it.value,
+                                language = it.language,
+                            )
+                        }
                     )
+
                 } else if (
                     getDateTime(remoteLanguageInfo.timestamp) >= localLanguageInfo.timestamp
                     && getDateTime(remoteLanguageInfo.timestamp) != localLanguageInfo.timestamp

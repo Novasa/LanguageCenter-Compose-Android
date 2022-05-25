@@ -37,7 +37,7 @@ object ApiModule {
     ): Api = Retrofit.Builder()
         .client(http(provider.config).build())
         .baseUrl(provider.config.baseUrl)
-        .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
+        .addConverterFactory(Json{ignoreUnknownKeys = true}.asConverterFactory("application/json".toMediaType()))
         .build()
         .create(Api::class.java)
 }

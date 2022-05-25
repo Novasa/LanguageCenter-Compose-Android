@@ -43,6 +43,7 @@ class ApiRepository @Inject constructor(
     }
 
     suspend fun getListStrings(language: String): List<StringModel> {
-        return api.listStrings("da")
+        Log.d("html", "${api.listStrings("$language")}")
+        return api.listStrings("&language=$language")
     }
 }
