@@ -26,7 +26,7 @@ class DaoRepository @Inject constructor(private val daoFunctions: DaoFunctions) 
 
     fun getLanguageInfo(): LanguageEntity = daoFunctions.getLanguageInfo()
 
-    suspend fun deleteItem(translationEntity: List<TranslationEntity>) = withContext(Dispatchers.IO){
-        daoFunctions.deleteItem(translationEntity)
+    suspend fun deleteItem(languageEntity: LanguageEntity) = withContext(Dispatchers.IO){
+        daoFunctions.deleteItem(languageEntity)
     }
 }

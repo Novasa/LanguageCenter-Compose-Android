@@ -23,7 +23,7 @@ interface DaoFunctions {
     fun getLanguageInfo(): LanguageEntity
 
     @Delete
-    suspend fun deleteItem(translationEntity: List<TranslationEntity>)
+    suspend fun deleteItem(translationEntity: LanguageEntity)
 
     @Update
     suspend fun updateItem(translationEntity: TranslationEntity)

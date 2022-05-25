@@ -35,11 +35,7 @@ class MainActivity : ComponentActivity() {
             )
         )
         viewModel.provider.setLanguage("da")
-        viewModel.getListStrings()
         setContent {
-            val Translations = viewModel.getReponse("","test.test","").collectAsState().value
-            val status = viewModel.currentStatus.collectAsState().value
-            Log.d("response2", "${Translations}")
 
             AndroidLibraryTheme {
                 Box(modifier = Modifier.fillMaxSize()) {
@@ -56,18 +52,14 @@ class MainActivity : ComponentActivity() {
                             Text(text = "upload string")
                         }
 
-                        Text(text = status.toString())
-                        TranslatedText(
-                            LanguageCenterViewModel = viewModel,
-                            TranslationData = PostStringModel(
-                                "hvad er toast",
-                                "test.test",
-                                "nejjj",
-                            ),
-                        )
-                        if (status == LCViewModel.Status.READY) {
-                            Text(text = Translations.toString())
+                        Button(
+                            onClick = {
+                                viewModel.testDeleteDao()
+                            }
+                        ) {
+                            Text(text = "delete string")
                         }
+
                     }
                 }
             }

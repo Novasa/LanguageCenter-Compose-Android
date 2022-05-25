@@ -85,7 +85,13 @@ class LCViewModel @Inject constructor(
         return responeInstance(stateFlowOfTranslationEntity).response
     }
 
-
+    //removeable fun
+    fun testDeleteDao() {
+        viewModelScope.launch(Dispatchers.IO) {
+            daoRepository.deleteItem(daoRepository.getLanguageInfo())
+            Log.d("deleted", daoTranslationsToMap.value.toString())
+        }
+    }
 
 
     fun postString (
@@ -138,8 +144,11 @@ class LCViewModel @Inject constructor(
 
                 Log.d("html", "${remoteTranslations}")
 
-                if (localLanguageInfo == null){
+                if (localLanguageInfo == null || getDateTime(remoteLanguageInfo.timestamp) >= localLanguageInfo.timestamp
+                    && getDateTime(remoteLanguageInfo.timestamp) != localLanguageInfo.timestamp
+                ) {
                     _currentStatus.value = Status.UPDATING
+                    daoRepository.deleteItem(daoRepository.getLanguageInfo())
                     daoRepository.insertLanguage(
                         languageEntity = LanguageEntity(
                             name = remoteLanguageInfo.name,
@@ -149,20 +158,6 @@ class LCViewModel @Inject constructor(
                             )
                         )
                     )
-                    daoRepository.insertTranslations(
-                        remoteTranslations.map {
-                            TranslationEntity(
-                                key = it.key,
-                                value = it.value,
-                                language = it.language,
-                            )
-                        }
-                    )
-                } else if (
-                    getDateTime(remoteLanguageInfo.timestamp) >= localLanguageInfo.timestamp
-                    && getDateTime(remoteLanguageInfo.timestamp) != localLanguageInfo.timestamp
-                ) {
-                    _currentStatus.value = Status.UPDATING
                     daoRepository.insertTranslations(
                         remoteTranslations.map {
                             TranslationEntity(
