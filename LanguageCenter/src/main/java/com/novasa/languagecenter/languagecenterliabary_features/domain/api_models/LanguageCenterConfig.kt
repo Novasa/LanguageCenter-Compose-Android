@@ -7,5 +7,4 @@ data class LanguageCenterConfig(
     val baseUrl: String,
     val password: String,
     val userName: String,
-    val html: Boolean = false,
 )

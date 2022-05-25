@@ -8,27 +8,27 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.novasa.languagecenter.languagecenterliabary_features.domain.api_models.PostStringModel
 
 @Composable
 fun TranslatedText(
     LanguageCenterViewModel: LCViewModel = viewModel(),
-    TextKey: String,
-    textStyle: TextStyle = TextStyle()
+    TranslationData: PostStringModel,
+    textStyle: TextStyle = TextStyle(
+        fontSize = 20.sp,
+        color = Color.Cyan,
+    )
 ) {
     LanguageCenterViewModel.getListStrings()
-    val translations = LanguageCenterViewModel.response.collectAsState().value
-    var displayText = ""
-    for (text in translations) {
-        if (text.key == TextKey) {
-            displayText = translations[text.key].toString()
-        }
-    }
+    val displayText = LanguageCenterViewModel.getReponse(
+        value = TranslationData.value,
+        key = TranslationData.key,
+        category = TranslationData.category
+    ).collectAsState().value
+
     Text(
-        text = displayText,
-        style = TextStyle(
-            fontSize = 20.sp,
-            color = Color.Cyan,
-        )
+        text = displayText!!.value,
+        style = TextStyle()
     )
 }
 

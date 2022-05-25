@@ -13,6 +13,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import com.novasa.languagecenter.languagecenterliabary_features.domain.api_models.LanguageCenterConfig
+import com.novasa.languagecenter.languagecenterliabary_features.domain.api_models.PostStringModel
 import com.novasa.languagecenter.languagecenterliabary_features.presentation.LCViewModel
 import com.novasa.languagecenter.languagecenterliabary_features.presentation.TranslatedText
 import com.novasa.languagecenterexample.ui.theme.AndroidLibraryTheme
@@ -31,7 +32,6 @@ class MainActivity : ComponentActivity() {
                 baseUrl = "https://language.novasa.com/sorgen/api/v1/",
                 userName = "novasa",
                 password = "kagekage",
-                html = false
             )
         )
         viewModel.provider.setLanguage("da")
@@ -47,11 +47,9 @@ class MainActivity : ComponentActivity() {
                         Button(
                             onClick = {
                                 viewModel.postString (
-                                    platform = "android",
                                     category = "LC test",
                                     key = "LC_test4",
                                     value = "second test from LC libary",
-                                    html = "@" //* to enable
                                 )
                             }
                         ) {
@@ -61,7 +59,11 @@ class MainActivity : ComponentActivity() {
                         Text(text = status.toString())
                         TranslatedText(
                             LanguageCenterViewModel = viewModel,
-                            TextKey = "test.test",
+                            TranslationData = PostStringModel(
+                                "hvad er toast",
+                                "test.test",
+                                "nejjj",
+                            ),
                         )
                         if (status == LCViewModel.Status.READY) {
                             Text(text = Translations.toString())

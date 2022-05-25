@@ -19,15 +19,13 @@ class ApiRepository @Inject constructor(
     private val api: Api
 ) {
     fun postString (
-        platform: String,
         category: String,
         key: String,
         value: String,
-        html: String,
     ) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                api.postString(PostStringModel(platform, category, key, value, html))
+                api.postString(PostStringModel(category, key, value))
             } catch (e: IOException) {
                 Log.d("MainActivity", "$e")
             }
@@ -43,7 +41,6 @@ class ApiRepository @Inject constructor(
     }
 
     suspend fun getListStrings(language: String): List<StringModel> {
-        Log.d("html", "${api.listStrings("$language")}")
         return api.listStrings("&language=$language")
     }
 }

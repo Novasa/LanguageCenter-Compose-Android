@@ -8,7 +8,10 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface DaoFunctions {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertTranslation(translationEntity: List<TranslationEntity>)
+    suspend fun insertTranslations(translationEntity: List<TranslationEntity>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertTranslation(translationEntity: TranslationEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertLanguage(languageEntity: LanguageEntity)

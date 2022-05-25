@@ -11,6 +11,10 @@ import javax.inject.Inject
 class DaoRepository @Inject constructor(private val daoFunctions: DaoFunctions) {
 
     suspend fun insertTranslations(translationEntity: List<TranslationEntity>) = withContext(Dispatchers.IO){
+        daoFunctions.insertTranslations(translationEntity)
+    }
+
+    suspend fun insertTranslation(translationEntity: TranslationEntity) = withContext(Dispatchers.IO){
         daoFunctions.insertTranslation(translationEntity)
     }
 
