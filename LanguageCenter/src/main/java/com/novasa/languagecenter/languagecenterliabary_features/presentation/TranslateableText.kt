@@ -24,10 +24,10 @@ fun TranslatedText(
         value = TranslationData.value,
         key = TranslationData.key,
         category = TranslationData.category
-    ).collectAsState().value
+    )
 
     Text(
-        text = displayText!!.value,
+        text = displayText.toString(),
         style = TextStyle()
     )
 }

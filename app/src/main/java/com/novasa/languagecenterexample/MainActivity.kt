@@ -14,6 +14,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import com.novasa.languagecenter.languagecenterliabary_features.domain.api_models.LanguageCenterConfig
 import com.novasa.languagecenter.languagecenterliabary_features.domain.api_models.PostStringModel
+import com.novasa.languagecenter.languagecenterliabary_features.domain.dao_models.TranslationEntity
 import com.novasa.languagecenter.languagecenterliabary_features.presentation.LCViewModel
 import com.novasa.languagecenter.languagecenterliabary_features.presentation.TranslatedText
 import com.novasa.languagecenterexample.ui.theme.AndroidLibraryTheme
@@ -35,8 +36,11 @@ class MainActivity : ComponentActivity() {
             )
         )
         viewModel.provider.setLanguage("da")
+        viewModel.getListStrings()
         setContent {
-
+            val initialValue = TranslationEntity("","","")
+            val text = viewModel.getReponse("test.test","test.test","hello")
+                .collectAsState(initialValue).value
             AndroidLibraryTheme {
                 Box(modifier = Modifier.fillMaxSize()) {
                     Column() {
@@ -54,12 +58,11 @@ class MainActivity : ComponentActivity() {
 
                         Button(
                             onClick = {
-                                viewModel.testDeleteDao()
+                                viewModel.morphtest()
                             }
                         ) {
-                            Text(text = "delete string")
+                            Text(text = text.toString())
                         }
-
                     }
                 }
             }

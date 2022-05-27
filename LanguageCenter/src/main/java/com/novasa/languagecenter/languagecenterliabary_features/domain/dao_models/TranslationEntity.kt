@@ -5,14 +5,7 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import com.novasa.languagecenter.languagecenterliabary_features.domain.api_models.AccountInfoModel
 
-@Entity(tableName = "TranslationsEntity", foreignKeys = [
-        ForeignKey(
-            entity = LanguageEntity::class,
-            parentColumns = ["codename"],
-            childColumns = ["language"],
-            onDelete = ForeignKey.CASCADE
-        )
-])
+@Entity(tableName = "TranslationsEntity", )
 
 data class TranslationEntity(
     @PrimaryKey
