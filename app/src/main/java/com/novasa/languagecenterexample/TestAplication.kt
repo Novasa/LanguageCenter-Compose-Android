@@ -16,8 +16,8 @@ class TestAplication: Application() {
         provider.configure(
             config = LanguageCenterConfig(
                 baseUrl = "https://language.novasa.com/sorgen/api/v1/",
-                userName = "kagekage",
-                password = "novasa"
+                userName = "novasa",
+                password = "kagekage"
             )
         )
     }

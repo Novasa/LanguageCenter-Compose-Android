@@ -52,19 +52,14 @@ class LCViewModel @Inject constructor(
     val currentStatus: StateFlow<Status>
         get() = _currentStatus.asStateFlow()
 
-    val response: StateFlow<Map<String, TranslationEntity>>
+    val translations: StateFlow<Map<String, TranslationEntity>>
         get() = daoTranslationsToMap
 
     fun getReponse(
         category: String,
         key: String,
         value: String,
-    ): Flow<TranslationEntity?> {
-        val stateFlowOfTranslationEntity = flowOf(daoTranslationsToMap.value[key]).stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.Eagerly,
-            initialValue = TranslationEntity("","","")
-        )
+    ) {
 
         viewModelScope.launch(Dispatchers.IO) {
             provider.setCurrentLanguage(
@@ -97,14 +92,14 @@ class LCViewModel @Inject constructor(
                 )
             }
         }
-
-        return responeInstance(stateFlowOfTranslationEntity).response
     }
 
-    fun morphtest() {
-        Log.d("best flow", daoTranslationsToMap.value.toString())
-    }
 
+    fun test () {
+        viewModelScope.launch(Dispatchers.IO) {
+            Log.d("long", "${daoRepository.getLanguageInfo()}")
+        }
+    }
 
     fun postString (
         category: String,
@@ -129,17 +124,9 @@ class LCViewModel @Inject constructor(
                     selectedLanguage = provider.language
                 )
             )
+            val LanguageInfoNullVal: Long = 0
             try {
-                val localLanguageInfo = if (daoRepository.getLanguageInfo() == null) {
-                    daoRepository.getLanguageInfo()
-                } else {
-                    LanguageEntity(
-                        "",
-                        "",
-                        false,
-                        0
-                    )
-                }
+                val localLanguageInfo = daoRepository.getLanguageInfo()
                 val remoteLanguageInfo = if (hasInternet.hasInternet()) {
                     api.getSpecificLanguage(provider.currentLanguage)
                 } else {
@@ -162,22 +149,23 @@ class LCViewModel @Inject constructor(
                         htmlTags = arrayOf("",""),
                     ))
                 }
-                if (localLanguageInfo == null || getDateTime(remoteLanguageInfo.timestamp) >= localLanguageInfo.timestamp
-                    && getDateTime(remoteLanguageInfo.timestamp) != localLanguageInfo.timestamp
+                if (remoteLanguageInfo.timestamp >= localLanguageInfo
+                    && remoteLanguageInfo.timestamp != localLanguageInfo
                 ) {
                     _currentStatus.value = Status.UPDATING
 
                     if(hasInternet.hasInternet()){
-                        if (localLanguageInfo != null) {
-                            daoRepository.deleteItem(daoRepository.getLanguageInfo())
+                        if (localLanguageInfo != LanguageInfoNullVal) {
+                            //daoRepository.deleteItem(daoRepository.getLanguageInfo())
                         }
                     }
+
                     daoRepository.insertLanguage(
                         languageEntity = LanguageEntity(
                             name = remoteLanguageInfo.name,
                             codename =  remoteLanguageInfo.codename,
                             is_fallback =  remoteLanguageInfo.is_fallback,
-                            timestamp = getDateTime(remoteLanguageInfo.timestamp)
+                            timestamp = remoteLanguageInfo.timestamp
                         )
                     )
                     daoRepository.insertTranslations(
@@ -200,11 +188,4 @@ class LCViewModel @Inject constructor(
         }
         Log.d("hello", daoTranslationsToMap.value.toString())
     }
-}
-
-class responeInstance(
-    private val stateFlowOfTranslationEntity: StateFlow<TranslationEntity?>
-) {
-    val response: StateFlow<TranslationEntity?>
-        get() = stateFlowOfTranslationEntity
 }

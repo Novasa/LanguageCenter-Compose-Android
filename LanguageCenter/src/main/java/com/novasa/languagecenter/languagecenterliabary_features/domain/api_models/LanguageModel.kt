@@ -9,5 +9,5 @@ data class LanguageModel(
     val name: String,
     val codename: String,
     val is_fallback: Boolean,
-    val timestamp: Int
+    val timestamp: Long
 )

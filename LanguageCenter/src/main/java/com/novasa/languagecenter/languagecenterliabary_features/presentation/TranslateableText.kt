@@ -11,24 +11,15 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.novasa.languagecenter.languagecenterliabary_features.domain.api_models.PostStringModel
 
 @Composable
-fun TranslatedText(
-    LanguageCenterViewModel: LCViewModel = viewModel(),
-    TranslationData: PostStringModel,
-    textStyle: TextStyle = TextStyle(
-        fontSize = 20.sp,
-        color = Color.Cyan,
-    )
-) {
-    LanguageCenterViewModel.getListStrings()
-    val displayText = LanguageCenterViewModel.getReponse(
-        value = TranslationData.value,
-        key = TranslationData.key,
-        category = TranslationData.category
-    )
+fun translatedText(
+    viewModel: LCViewModel = viewModel(),
+    key: String,
+    fallback: String
+) :String {
 
-    Text(
-        text = displayText.toString(),
-        style = TextStyle()
-    )
+
+    val translations = viewModel.translations.collectAsState().value
+
+    return translations[key]?.value ?: fallback
 }
 

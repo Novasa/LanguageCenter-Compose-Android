@@ -19,11 +19,11 @@ interface DaoFunctions {
     @Query("select * from TranslationsEntity")
     fun getTranslations(): Flow<List<TranslationEntity>>
 
-    @Query("select * from LanguageEntity")
-    fun getLanguageInfo(): LanguageEntity
+    @Query("select timestamp from LanguageEntity where codename is :language")
+    fun getLanguageInfo(language: String): Long
 
-    @Delete
-    suspend fun deleteItem(translationEntity: LanguageEntity)
+    @Query("delete from LanguageEntity where codename is :language")
+    suspend fun deleteItem(language: String)
 
     @Update
     suspend fun updateItem(translationEntity: TranslationEntity)

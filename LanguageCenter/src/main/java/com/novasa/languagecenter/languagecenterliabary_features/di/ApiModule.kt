@@ -27,7 +27,7 @@ object ApiModule {
      ): OkHttpClient.Builder {
          Log.d("credentials", "${credentials.userName} ${credentials.password}")
          return OkHttpClient.Builder()
-             .authenticator( Auth(credentials.password, credentials.userName))
+             .authenticator( Auth(credentials.userName, credentials.password))
      }
 
     @Provides
