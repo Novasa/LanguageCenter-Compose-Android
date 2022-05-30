@@ -41,6 +41,6 @@ class ApiRepository @Inject constructor(
     }
 
     suspend fun getListStrings(language: String): List<StringModel> {
-        return api.listStrings(language)
+        return api.listStrings("off", language)
     }
 }

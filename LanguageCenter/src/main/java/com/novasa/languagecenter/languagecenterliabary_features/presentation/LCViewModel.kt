@@ -118,7 +118,7 @@ class LCViewModel @Inject constructor(
                     )
                 )
                 val LanguageInfoNullVal: Long = 0
-                val localLanguageInfo = daoRepository.getLanguageInfo()
+                val localLanguageInfo = daoRepository.getLanguageInfo(provider.currentLanguage)
                 val remoteLanguageInfo = api.getSpecificLanguage(provider.currentLanguage)
                 val remoteTranslations = api.getListStrings(provider.currentLanguage)
 
