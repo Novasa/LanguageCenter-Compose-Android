@@ -40,22 +40,10 @@ class MainActivity : ComponentActivity() {
                     Column() {
                         Button(
                             onClick = {
-                                viewModel.postString (
-                                    category = "LC test",
-                                    key = "LC_test4",
-                                    value = "second test from LC libary",
-                                )
-                            }
-                        ) {
-                            Text(text = "upload string")
-                        }
-
-                        Button(
-                            onClick = {
                                 viewModel.test()
                             }
                         ) {
-                            Text(text = text.toString())
+                            Text(text = translatedText(viewModel, "test.test", "hello world" ))
                         }
                     }
                 }

@@ -25,9 +25,11 @@ object ApiModule {
      private fun http(
          credentials: LanguageCenterConfig,
      ): OkHttpClient.Builder {
-         Log.d("credentials", "${credentials.userName} ${credentials.password}")
          return OkHttpClient.Builder()
-             .authenticator( Auth(credentials.userName, credentials.password))
+             .authenticator( Auth(
+                 password = credentials.password,
+                 username = credentials.userName,
+             ))
      }
 
     @Provides

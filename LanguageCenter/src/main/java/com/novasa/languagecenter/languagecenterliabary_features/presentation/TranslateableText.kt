@@ -17,7 +17,11 @@ fun translatedText(
     fallback: String
 ) :String {
 
-
+    viewModel.ensureTranslationExist(
+        key = key,
+        value = fallback,
+        category = "da"
+    )
     val translations = viewModel.translations.collectAsState().value
 
     return translations[key]?.value ?: fallback
