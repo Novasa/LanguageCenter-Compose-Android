@@ -16,7 +16,7 @@ object DaoModule {
     @Provides
     @Singleton
     fun providesDatabase(application: Application): DaoDatabase = Room
-        .databaseBuilder(application, DaoDatabase::class.java, "TodoDatabase")
+        .databaseBuilder(application, DaoDatabase::class.java, "LCDatabase")
         .fallbackToDestructiveMigration()
         .build()
 

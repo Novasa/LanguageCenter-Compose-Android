@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import com.novasa.languagecenter.languagecenterliabary_features.domain.dao_models.LanguageEntity
 import com.novasa.languagecenter.languagecenterliabary_features.domain.dao_models.TranslationEntity
 
-@Database(entities = [TranslationEntity::class, LanguageEntity::class], version = 33, exportSchema = false)
+@Database(entities = [TranslationEntity::class, LanguageEntity::class], version = 1, exportSchema = false)
 abstract class DaoDatabase : RoomDatabase(){
 
     abstract fun getDao(): DaoFunctions
