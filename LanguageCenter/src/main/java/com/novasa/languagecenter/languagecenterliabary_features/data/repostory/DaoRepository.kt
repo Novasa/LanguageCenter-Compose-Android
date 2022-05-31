@@ -10,6 +10,17 @@ import javax.inject.Inject
 
 class DaoRepository @Inject constructor(private val daoFunctions: DaoFunctions) {
 
+    suspend fun updateDaoDb(
+        translationEntity: List<TranslationEntity>,
+        languageEntity: LanguageEntity,
+        LangCodename: String = languageEntity.codename
+    ) = withContext(Dispatchers.IO){
+        daoFunctions.deleteDbInsertTranslationsAndLanguage(
+            languageEntity = languageEntity,
+            translationEntity = translationEntity,
+        )
+    }
+
     suspend fun insertTranslations(translationEntity: List<TranslationEntity>) = withContext(Dispatchers.IO){
         daoFunctions.insertTranslations(translationEntity)
     }

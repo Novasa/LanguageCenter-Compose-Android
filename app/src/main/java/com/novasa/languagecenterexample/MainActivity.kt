@@ -32,15 +32,19 @@ class MainActivity : ComponentActivity() {
         viewModel.getListStrings()
         setContent {
             val translations = viewModel.translations.collectAsState().value
+            val status = viewModel.currentStatus.collectAsState().value
             AndroidLibraryTheme {
                 Box(modifier = Modifier.fillMaxSize()) {
                     Column() {
+                        Text(text = status.toString())
                         Button(
                             onClick = {
-                                viewModel.test()
+                                viewModel.getListStrings()
                             }
                         ) {
                             Text(text = translatedText(viewModel, "test.test", "guten huete leute" ))
+                            Text(text = translations.toString())
+                            Text(text = status.toString())
                         }
                     }
                 }

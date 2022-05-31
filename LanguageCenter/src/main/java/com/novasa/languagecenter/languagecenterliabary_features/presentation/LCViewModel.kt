@@ -54,6 +54,7 @@ class LCViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             _currentStatus.value = Status.UPDATING
             try {
+                Log.d("Funtion_exucuted", "ensureTranslationExist")
                 provider.setCurrentLanguage(
                     configureLanguage.languageConfiguring(
                         languageList = api.getListLanguage().associateBy({it.codename}, {it}),
@@ -63,6 +64,7 @@ class LCViewModel @Inject constructor(
                 val mapOfStrings = daoTranslationsToMap.value
 
                 if (mapOfStrings[key] == null) {
+                    Log.d("Funtion_exucuted", "ensureTranslationExist ${mapOfStrings[key]}")
                     api.postString(
                         category = category,
                         key = key,
@@ -110,9 +112,10 @@ class LCViewModel @Inject constructor(
                 val localLanguageInfo = daoRepository.getLanguageInfo(provider.currentLanguage)
                 val remoteLanguageInfo = remoteLanguages[provider.currentLanguage]
 
-                if (remoteLanguageInfo?.timestamp ?: 0 >= localLanguageInfo
-                    && remoteLanguageInfo?.timestamp ?: 0 != localLanguageInfo
+                if (remoteLanguageInfo?.timestamp ?: 0 > localLanguageInfo
                 ) {
+                    Log.d("Funtion_exucuted", "Timestamp check ${remoteLanguageInfo?.timestamp ?: 0} ${localLanguageInfo}")
+
                     _currentStatus.value = Status.UPDATING
                     if (localLanguageInfo != 0L) {
                         daoRepository.deleteItem(remoteLanguageInfo!!.codename)
@@ -120,16 +123,14 @@ class LCViewModel @Inject constructor(
 
                     val remoteTranslations = api.getListStrings(provider.currentLanguage, "da")
 
-                    daoRepository.insertLanguage(
+                    daoRepository.updateDaoDb(
                         languageEntity = LanguageEntity(
                             name = remoteLanguageInfo!!.name,
                             codename =  remoteLanguageInfo.codename,
                             is_fallback =  remoteLanguageInfo.is_fallback,
                             timestamp = remoteLanguageInfo.timestamp
-                        )
-                    )
-                    daoRepository.insertTranslations(
-                        remoteTranslations.map {
+                        ),
+                        translationEntity = remoteTranslations.map {
                             TranslationEntity(
                                 key = it.key,
                                 value = it.value,
@@ -137,7 +138,6 @@ class LCViewModel @Inject constructor(
                             )
                         }
                     )
-                    Log.d("data", remoteTranslations.toString())
                 }
             } catch (e: Exception) {
                 Log.e("LC", "Update failed", e)
