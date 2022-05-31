@@ -16,6 +16,7 @@ import retrofit2.Retrofit
 import javax.inject.Singleton
 
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor
 
 
 @Module
@@ -30,6 +31,9 @@ object ApiModule {
                  password = credentials.password,
                  username = credentials.userName,
              ))
+             .addInterceptor(HttpLoggingInterceptor().apply {
+                 level = HttpLoggingInterceptor.Level.BODY
+             })
      }
 
     @Provides

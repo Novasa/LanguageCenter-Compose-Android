@@ -1,8 +1,6 @@
 package com.novasa.languagecenter.languagecenterliabary_features.use_cases
 
 import com.novasa.languagecenter.languagecenterliabary_features.domain.api_models.LanguageModel
-import com.novasa.languagecenter.languagecenterliabary_features.provider.LCProvider
-import com.novasa.languagecenter.languagecenterliabary_features.provider.LCProviderImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,16 +19,16 @@ class ConfigureLanguage @Inject constructor(
     @Provides
     @Singleton
     fun languageConfiguring(
-        languageList: List<LanguageModel>,
+        languageList: Map<String, LanguageModel>,
         selectedLanguage:  String
     ): String {
         for (language in languageList) {
-            _currentlanguage = if (language.codename == localLanguage) {
+            _currentlanguage = if (language.value.codename == localLanguage) {
                 localLanguage
-            } else if (_currentlanguage != localLanguage && selectedLanguage == language.codename) {
+            } else if (_currentlanguage != localLanguage && selectedLanguage == language.value.codename) {
                 selectedLanguage
             } else {
-                language.codename
+                language.value.codename
             }
         }
 

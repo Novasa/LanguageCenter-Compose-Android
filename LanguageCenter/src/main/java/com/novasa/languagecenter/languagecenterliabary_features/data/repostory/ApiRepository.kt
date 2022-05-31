@@ -12,24 +12,19 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.IOException
+import java.sql.Timestamp
 import javax.inject.Inject
 
 
 class ApiRepository @Inject constructor(
     private val api: Api
 ) {
-    fun postString (
+    suspend fun postString (
         category: String,
         key: String,
         value: String,
     ) {
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                api.postString(PostStringModel(category, key, value))
-            } catch (e: IOException) {
-                Log.d("MainActivity", "$e")
-            }
-        }
+        api.postString(PostStringModel(category, key, value))
     }
 
     suspend fun getListLanguage(): List<LanguageModel> {
@@ -40,7 +35,10 @@ class ApiRepository @Inject constructor(
         return api.specificLanguage(language = language)
     }
 
-    suspend fun getListStrings(language: String): List<StringModel> {
-        return api.listStrings("off", language)
+    suspend fun getListStrings(
+        timestamp: String = "on",
+        language: String
+    ): List<StringModel> {
+        return api.listStrings(timestamp, language)
     }
 }

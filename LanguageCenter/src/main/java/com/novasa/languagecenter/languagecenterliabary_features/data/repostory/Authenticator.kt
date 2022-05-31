@@ -9,7 +9,7 @@ class Auth(
     password: String
 ) : Authenticator {
 
-    val credential = Credentials.basic(username = password, password = username);
+    val credential = Credentials.basic(username = username, password = password);
 
     override fun authenticate(route: Route?, response: Response): Request? {
         return response.request

@@ -3,25 +3,18 @@ package com.novasa.languagecenter.languagecenterliabary_features.presentation
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.novasa.languagecenter.languagecenterliabary_features.data.repostory.ApiRepository
 import com.novasa.languagecenter.languagecenterliabary_features.data.repostory.DaoRepository
 import com.novasa.languagecenter.languagecenterliabary_features.domain.api_models.LanguageModel
-import com.novasa.languagecenter.languagecenterliabary_features.domain.api_models.StringModel
 import com.novasa.languagecenter.languagecenterliabary_features.domain.dao_models.LanguageEntity
 import com.novasa.languagecenter.languagecenterliabary_features.domain.dao_models.TranslationEntity
 import com.novasa.languagecenter.languagecenterliabary_features.provider.LCProvider
 import com.novasa.languagecenter.languagecenterliabary_features.use_cases.ConfigureLanguage
-import com.novasa.languagecenter.languagecenterliabary_features.use_cases.UnixConverter.getDateTime
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import java.io.IOException
-import java.util.Collections.list
 import javax.inject.Inject
-import javax.inject.Provider
 
 @HiltViewModel
 class LCViewModel @Inject constructor(
@@ -63,23 +56,18 @@ class LCViewModel @Inject constructor(
             try {
                 provider.setCurrentLanguage(
                     configureLanguage.languageConfiguring(
-                        languageList = api.getListLanguage(),
+                        languageList = api.getListLanguage().associateBy({it.codename}, {it}),
                         selectedLanguage = provider.language
                     )
                 )
-                val mapOfStrings = api.getListStrings(provider.currentLanguage)
-                    .associateBy({it.key}, {it})
+                val mapOfStrings = daoTranslationsToMap.value
 
                 if (mapOfStrings[key] == null) {
-                    try {
-                        api.postString(
-                            category = category,
-                            key = key,
-                            value = value
-                        )
-                    } catch (e: Exception) {
-                        Log.d("MainActivity", "$e")
-                    }
+                    api.postString(
+                        category = category,
+                        key = key,
+                        value = value
+                    )
                 }
             } catch (e: Exception){
                 _currentStatus.value = Status.FAILED
@@ -96,11 +84,10 @@ class LCViewModel @Inject constructor(
 
             Log.d("long", "${daoTranslationsToMap.value}")
             try {
-                val remoteLanguageInfo = api.getSpecificLanguage("da")
-                daoRepository.deleteItem("da")
-                Log.d("long", "${remoteLanguageInfo}")
+                val remoteTranslations = api.getListStrings("off", "da")
+                Log.d("data", "${remoteTranslations}")
             } catch (e: Exception) {
-
+                Log.e("long", "", e)
             }
             Log.d("long", "${daoTranslationsToMap.value}")
         }
@@ -111,28 +98,31 @@ class LCViewModel @Inject constructor(
 
             _currentStatus.value = Status.INITIALIZING
             try {
+                val remoteLanguages = api.getListLanguage()
+                    .associateBy({it.codename}, {it})
+
                 provider.setCurrentLanguage(
                     configureLanguage.languageConfiguring(
-                        languageList = api.getListLanguage(),
+                        languageList = remoteLanguages,
                         selectedLanguage = provider.language
                     )
                 )
-                val LanguageInfoNullVal: Long = 0
                 val localLanguageInfo = daoRepository.getLanguageInfo(provider.currentLanguage)
-                val remoteLanguageInfo = api.getSpecificLanguage(provider.currentLanguage)
-                val remoteTranslations = api.getListStrings(provider.currentLanguage)
+                val remoteLanguageInfo = remoteLanguages[provider.currentLanguage]
 
-                if (remoteLanguageInfo.timestamp >= localLanguageInfo
-                    && remoteLanguageInfo.timestamp != localLanguageInfo
+                if (remoteLanguageInfo?.timestamp ?: 0 >= localLanguageInfo
+                    && remoteLanguageInfo?.timestamp ?: 0 != localLanguageInfo
                 ) {
                     _currentStatus.value = Status.UPDATING
-                    if (localLanguageInfo != LanguageInfoNullVal) {
-                        daoRepository.deleteItem(remoteLanguageInfo.codename)
+                    if (localLanguageInfo != 0L) {
+                        daoRepository.deleteItem(remoteLanguageInfo!!.codename)
                     }
+
+                    val remoteTranslations = api.getListStrings(provider.currentLanguage, "da")
 
                     daoRepository.insertLanguage(
                         languageEntity = LanguageEntity(
-                            name = remoteLanguageInfo.name,
+                            name = remoteLanguageInfo!!.name,
                             codename =  remoteLanguageInfo.codename,
                             is_fallback =  remoteLanguageInfo.is_fallback,
                             timestamp = remoteLanguageInfo.timestamp
@@ -147,8 +137,10 @@ class LCViewModel @Inject constructor(
                             )
                         }
                     )
+                    Log.d("data", remoteTranslations.toString())
                 }
             } catch (e: Exception) {
+                Log.e("LC", "Update failed", e)
                 _currentStatus.value = Status.FAILED
             }
             if (_currentStatus.value != Status.FAILED){

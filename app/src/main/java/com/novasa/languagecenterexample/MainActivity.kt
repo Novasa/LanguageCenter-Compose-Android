@@ -31,10 +31,7 @@ class MainActivity : ComponentActivity() {
         viewModel.provider.setLanguage("da")
         viewModel.getListStrings()
         setContent {
-           Text(text = translatedText(key = "", fallback = ""))
-
-            val initialValue = TranslationEntity("","","")
-            val text = viewModel.translations.collectAsState().value
+            val translations = viewModel.translations.collectAsState().value
             AndroidLibraryTheme {
                 Box(modifier = Modifier.fillMaxSize()) {
                     Column() {
@@ -43,7 +40,7 @@ class MainActivity : ComponentActivity() {
                                 viewModel.test()
                             }
                         ) {
-                            Text(text = translatedText(viewModel, "test.test", "hello world" ))
+                            Text(text = translatedText(viewModel, "test.test", "guten huete leute" ))
                         }
                     }
                 }
