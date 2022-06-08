@@ -20,6 +20,7 @@ import com.novasa.languagecenter.languagecenterliabary_features.presentation.tra
 import com.novasa.languagecenterexample.ui.theme.AndroidLibraryTheme
 import com.novasa.languagecenter.languagecenterliabary_features.provider.LCProviderImpl
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.format.TextStyle
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -36,7 +37,9 @@ class MainActivity : ComponentActivity() {
             AndroidLibraryTheme {
                 Box(modifier = Modifier.fillMaxSize()) {
                     Column() {
-                        Text(text = status.toString())
+                        Text(
+                            text = status.toString(),
+                        )
                         Button(
                             onClick = {
                                 viewModel.getListStrings()

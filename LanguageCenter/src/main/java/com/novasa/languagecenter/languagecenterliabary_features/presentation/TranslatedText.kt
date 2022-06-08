@@ -14,7 +14,7 @@ import com.novasa.languagecenter.languagecenterliabary_features.domain.api_model
 fun translatedText(
     viewModel: LCViewModel = viewModel(),
     key: String,
-    fallback: String
+    fallback: String,
 ) :String {
 
     viewModel.ensureTranslationExist(
