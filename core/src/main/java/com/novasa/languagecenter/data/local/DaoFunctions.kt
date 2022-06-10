@@ -30,6 +30,9 @@ interface DaoFunctions {
     @Query("select * from TranslationsEntity")
     fun getTranslations(): Flow<List<TranslationEntity>>
 
+    @Query("select * from TranslationsEntity where `key` is :key")
+    suspend fun getTranslation(key: String): TranslationEntity?
+
     @Query("select * from LanguageEntity where codename is :language")
     suspend fun getLanguageInfo(language: String): LanguageEntity?
 

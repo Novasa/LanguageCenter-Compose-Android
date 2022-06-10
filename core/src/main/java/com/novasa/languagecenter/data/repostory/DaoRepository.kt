@@ -41,5 +41,9 @@ class DaoRepository @Inject constructor(private val daoFunctions: DaoFunctions) 
     suspend fun deleteItem(LangCodename: String) = withContext(Dispatchers.IO) {
         daoFunctions.deleteItem(LangCodename)
     }
+
+    suspend fun doesTranslationExist(category: String, key: String) = withContext(Dispatchers.IO) {
+        daoFunctions.getTranslation("$category.$key") != null
+    }
 }
 

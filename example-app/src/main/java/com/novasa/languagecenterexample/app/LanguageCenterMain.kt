@@ -23,7 +23,7 @@ const val LC_CATEGORY = "languagecenter_test"
 fun LanguageCenterMain(
     viewModel: LCViewModel = viewModel()
 ) {
-    val status = viewModel.currentStatus.collectAsState()
+    val status = viewModel.status.collectAsState()
 
 
 

@@ -3,8 +3,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class PostStringModel (
-    val platform: String = "android",
+    val platform: String,
     val category: String,
     val key: String,
-    val value: String = "test: no value",
+    val value: String,
 )

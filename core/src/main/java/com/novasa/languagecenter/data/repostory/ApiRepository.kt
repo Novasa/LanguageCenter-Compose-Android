@@ -10,12 +10,19 @@ import javax.inject.Inject
 class ApiRepository @Inject constructor(
     private val api: Api
 ) {
-    suspend fun postString (
+    suspend fun postString(
         category: String,
         key: String,
         value: String,
     ) {
-        api.postString(PostStringModel( "android", category, key, value))
+        api.postString(
+            PostStringModel(
+                platform = "android",
+                category = category,
+                key = key,
+                value = value
+            )
+        )
     }
 
     suspend fun getListLanguage(): List<LanguageModel> {
