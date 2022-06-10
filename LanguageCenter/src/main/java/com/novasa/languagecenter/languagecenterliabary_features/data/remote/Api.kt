@@ -19,7 +19,7 @@ interface Api {
     @GET("languages?timestamp=on")
     suspend fun listLanguages(): List<LanguageModel>
 
-    @GET("strings?platform=android&indexing=off&")
+    @GET("strings?platform=android&indexing=off&timestamp=on&language=da")
     suspend fun listStrings(
         @Query("timestamp") timestamp: String,
         @Query("language") language: String
@@ -27,4 +27,5 @@ interface Api {
 
     @POST("string")
     suspend fun postString(@Body requestBody: PostStringModel): ResponseBody
+
 }

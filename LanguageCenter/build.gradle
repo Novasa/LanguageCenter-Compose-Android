@@ -74,15 +74,11 @@ dependencies {
     implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0")
 }
 
-afterEvaluate {
+project.afterEvaluate {
     publishing {
         publications {
             release(MavenPublication) {
                 from components.release
-
-                groupId = 'com.github.Novasa'
-                artifactId = 'language-center'
-                version = '1.0'
             }
         }
     }

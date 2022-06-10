@@ -24,7 +24,7 @@ class ApiRepository @Inject constructor(
         key: String,
         value: String,
     ) {
-        api.postString(PostStringModel(category, key, value))
+        api.postString(PostStringModel( "android", category, key, value))
     }
 
     suspend fun getListLanguage(): List<LanguageModel> {

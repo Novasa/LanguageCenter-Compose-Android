@@ -12,7 +12,7 @@ import com.novasa.languagecenter.languagecenterliabary_features.domain.api_model
 
 @Composable
 fun translatedText(
-    viewModel: LCViewModel = viewModel(),
+    viewModel: LCViewModel,
     key: String,
     fallback: String,
 ) :String {
@@ -20,8 +20,9 @@ fun translatedText(
     viewModel.ensureTranslationExist(
         key = key,
         value = fallback,
-        category = "da"
+        language = "da"
     )
+
     val translations = viewModel.translations.collectAsState().value
 
     return translations[key]?.value ?: fallback
