@@ -1,4 +1,4 @@
-package com.novasa.languagecenter.app
+package com.novasa.languagecenterexample.app
 
 import android.os.Bundle
 import androidx.activity.compose.setContent

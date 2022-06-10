@@ -1,4 +1,4 @@
-package com.novasa.languagecenter.app
+package com.novasa.languagecenterexample.app
 
 import android.app.Application
 import com.novasa.languagecenter.domain.api_models.LanguageCenterConfig

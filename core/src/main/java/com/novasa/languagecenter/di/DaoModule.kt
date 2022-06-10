@@ -12,7 +12,8 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object DaoModule {
+class DaoModule {
+
     @Provides
     @Singleton
     fun providesDatabase(application: Application): DaoDatabase = Room

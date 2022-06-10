@@ -11,6 +11,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 interface ProviderModule {
+
     @Binds
     @Singleton
     fun bindProvider(

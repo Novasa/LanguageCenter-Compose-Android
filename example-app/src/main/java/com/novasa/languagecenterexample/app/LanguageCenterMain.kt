@@ -1,4 +1,4 @@
-package com.novasa.languagecenter.app
+package com.novasa.languagecenterexample.app
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,9 +13,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.novasa.languagecenter.R
 import com.novasa.languagecenter.presentation.LCViewModel
 import com.novasa.languagecenter.presentation.translatedText
+import com.novasa.languagecenterexample.R
 
 const val LC_CATEGORY = "languagecenter_test"
 

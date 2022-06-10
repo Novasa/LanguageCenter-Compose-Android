@@ -21,7 +21,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object ApiModule {
+class ApiModule {
 
     private fun http(
         credentials: LanguageCenterConfig,
@@ -42,7 +42,7 @@ object ApiModule {
     @OptIn(ExperimentalSerializationApi::class)
     @Provides
     @Singleton
-    fun api(
+    fun provideApi(
         provider: LCProvider
     ): Api = Retrofit.Builder()
         .client(http(provider.config))
