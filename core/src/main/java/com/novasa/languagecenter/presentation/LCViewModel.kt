@@ -48,6 +48,7 @@ class LCViewModel @Inject constructor(
         category: String,
         key: String,
         value: String,
+        html: String
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             if (!daoRepository.doesTranslationExist(category = category, key = key)) {
@@ -55,7 +56,8 @@ class LCViewModel @Inject constructor(
                     api.postString(
                         category = category,
                         key = key,
-                        value = value
+                        value = value,
+                        html = html
                     )
 
                 } catch (e: Exception) {

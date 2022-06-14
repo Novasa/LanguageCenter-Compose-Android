@@ -14,13 +14,15 @@ class ApiRepository @Inject constructor(
         category: String,
         key: String,
         value: String,
+        html: String
     ) {
         api.postString(
             PostStringModel(
                 platform = "android",
                 category = category,
                 key = key,
-                value = value
+                value = value,
+                html_tags = html
             )
         )
     }

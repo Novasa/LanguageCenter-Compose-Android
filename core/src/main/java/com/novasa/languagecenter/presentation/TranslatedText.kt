@@ -11,13 +11,15 @@ fun translatedText(
     category: String,
     key: String,
     fallback: String,
+    enable_html: String = ""
 ): String {
 
     LaunchedEffect(category, key) {
         viewModel.ensureTranslationExist(
             category = category,
             key = key,
-            value = fallback
+            value = fallback,
+            html = enable_html
         )
     }
 
